@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en" className="bg-white">
       <head>
         <link
           href="/favicon-48x48.png"
@@ -52,10 +52,10 @@ export default function RootLayout({
           sizes="180x180"
         />
       </head>
-      <body className="min-h-screen font-sans antialiased">
+      <body className="min-h-screen font-sans antialiased bg-white">
         <Providers themeProps={{ attribute: "class", forcedTheme: "white" }}>
           <PostHogPageView />
-          <div className="relative flex flex-col h-screen">
+          <div className="relative flex flex-col h-screen bg-white">
             <Navbar />
             <main className="container mx-auto max-w-7xl py-20 px-6 flex-grow">
               {children}

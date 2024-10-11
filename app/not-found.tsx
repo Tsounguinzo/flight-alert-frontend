@@ -1,3 +1,5 @@
+"use client";
+
 export default function Custom404() {
   return (
     <div className="text-center">

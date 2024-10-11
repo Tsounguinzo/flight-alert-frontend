@@ -1,62 +1,124 @@
 "use client";
 
+import {
+  ArrowRightIcon,
+  FacebookIcon,
+  FooterLogo,
+  InstagramIcon,
+  LinkedInIcon,
+  YoutubeIcon,
+} from "./icons";
+
 export default function Footer() {
   return (
-    <footer className="bg-foreground py-8 text-default">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer
+      className="py-8 text-default"
+      style={{ background: "rgba(33, 76, 231, 1)" }}
+    >
+      <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex justify-between md:flex-row gap-2">
           {/* Company Information */}
           <div className="w-full">
             <div>
-              <h2 className="font-bold text-3xl mb-3">Tripper</h2>
-              <p className="mb-3">117 Abbey Rd, London NW8 9AY, UK</p>
-              <p className="mb-3">+44 000 000 0000</p>
-              <p className="mb-3">info@tripper.com</p>
+              <div className="flex items-center mb-10 gap-4">
+                <FooterLogo />
+                <h2 className="font-bold text-3xl">FlyFast</h2>
+              </div>
+              <p className="mb-10">
+                Worem ipsum dolor sit amet, cons ectetur adipiscing elit. Vestib
+                ulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                Donec sollicitudin molestie malesuada.
+              </p>
+              <div className="flex items-center gap-4">
+                <YoutubeIcon />
+                <FacebookIcon />
+                <InstagramIcon />
+                <LinkedInIcon />
+              </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div className="w-full flex justify-center">
             <div>
-              <h2 className="font-bold text-lg mb-4">Company</h2>
-              <ul className="space-y-2">
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    Contacts
+              <h2 className="font-bold text-lg mb-4">Useful Links</h2>
+              <ul className="space-y-6">
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    About Us
                   </a>
                 </li>
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    Support
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Airlines
                   </a>
                 </li>
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    FAQ
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Stops
+                  </a>
+                </li>
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Connections
+                  </a>
+                </li>
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Duration
                   </a>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Content Links */}
           <div className="w-full flex justify-center">
             <div>
-              <h2 className="font-bold text-lg mb-4">Quick Links</h2>
+              <h2 className="font-bold text-lg mb-4">Content</h2>
               <ul className="space-y-2">
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    Flights
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Home
                   </a>
                 </li>
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    Hotels
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    FAQ
                   </a>
                 </li>
-                <li>
-                  <a className="text-gray-400 hover:text-white" href="/">
-                    Services
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    Join Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="w-full flex justify-center">
+            <div>
+              <h2 className="font-bold text-lg mb-4">Contact Us</h2>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    contactus@flyfast.io
+                  </a>
+                </li>
+                <li className="flex items-center gap-4">
+                  <ArrowRightIcon />
+                  <a className="text-gray-300 hover:text-white" href="/">
+                    +1-514-592-2445
                   </a>
                 </li>
               </ul>
@@ -93,7 +155,7 @@ export default function Footer() {
                     */}
         </div>
 
-        <div className="flex justify-between mt-8">
+        {/* <div className="flex justify-between mt-8">
           <div className="">
             <a className="mr-2 text-sm" href="/">
               Terms of use
@@ -109,7 +171,7 @@ export default function Footer() {
           </div>
 
           <div />
-        </div>
+        </div> */}
       </div>
     </footer>
   );

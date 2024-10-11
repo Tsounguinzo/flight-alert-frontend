@@ -1,39 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply bg-background text-foreground;
-    }
+  body {
+    @apply bg-white text-foreground;
+  }
 }
 
 @layer base {
-    :root {
-        --primary-700: 30, 100%, 50%;
-    }
+  :root {
+    --primary-700: 30, 100%, 50%;
+  }
 }
+
 *::selection {
-    background-color: hsla(var(--primary-700), 10%) !important;
-    color: hsla(var(--primary-700), 100%) !important;
+  background-color: hsla(var(--primary-700), 10%) !important;
+  color: hsla(var(--primary-700), 100%) !important;
 }
 
 h1 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 64px;
-    line-height: 96px;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 64px;
+  line-height: 96px;
 }
 
 h2 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 48px;
-    line-height: 72px;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 48px;
+  line-height: 72px;
 }
 
 h3 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 32px;
-    line-height: 48px;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 32px;
+  line-height: 48px;
 }

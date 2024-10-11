@@ -2,7 +2,7 @@ import { Frequency, FrequencyEnum, Tier, TiersEnum } from "@/types/pricing";
 
 export const CONTACT_EMAIL = "help@flyfast.io";
 export const TEST_MODE_ENABLED = ["true", "True", "TRUE"].includes(
-  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? "",
+  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? ""
 );
 
 export const frequencies: Array<Frequency> = [
@@ -83,16 +83,16 @@ export const siteConfig = {
   description: "Get notified when the price of your flight drops.",
   navItems: [
     {
-      label: "Home",
+      label: "Slap Me",
+      href: "/s",
+    },
+    {
+      label: "Motivation",
       href: "/",
     },
     {
-      label: "Flights",
-      href: "/flights",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Review",
+      href: "/",
     },
   ],
   navMenuItems: [
