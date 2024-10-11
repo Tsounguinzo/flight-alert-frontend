@@ -25,19 +25,21 @@ export const passwordSchema = z.object({
     .min(8, { message: "Password should be at least 8 characters" }),
 });
 
-export const signUpSchema = z.object({
-  email: emailSchema.shape.email,
-  password: passwordSchema.shape.password,
-  confirmPassword: passwordSchema.shape.password,
-  heard_about_us: z
-    .string({
-      required_error: "Please tell us how you heard about us.",
-    })
-    .max(30, { message: "Message too long" })
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+export const signUpSchema = z
+  .object({
+    email: emailSchema.shape.email,
+    password: passwordSchema.shape.password,
+    confirmPassword: passwordSchema.shape.password,
+    heard_about_us: z
+      .string({
+        required_error: "Please tell us how you heard about us.",
+      })
+      .max(30, { message: "Message too long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 export const signInSchema = z.object({
   email: emailSchema.shape.email,

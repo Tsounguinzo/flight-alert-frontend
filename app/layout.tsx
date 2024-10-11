@@ -5,9 +5,9 @@ import dynamic from "next/dynamic";
 
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import {siteConfig} from "@/utils/constants";
 
 export const metadata: Metadata = {
   title: {
@@ -57,7 +57,7 @@ export default function RootLayout({
           <PostHogPageView />
           <div className="relative flex flex-col h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+            <main className="container mx-auto max-w-7xl py-20 px-6 flex-grow">
               {children}
             </main>
             <Footer />
