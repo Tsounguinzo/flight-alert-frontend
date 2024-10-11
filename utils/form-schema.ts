@@ -26,10 +26,6 @@ export const passwordSchema = z.object({
 });
 
 export const signUpSchema = z.object({
-  full_name: z
-    .string()
-    .min(1, { message: "Name is required." })
-    .max(100, { message: "Name is too long." }),
   email: emailSchema.shape.email,
   password: passwordSchema.shape.password,
   confirmPassword: passwordSchema.shape.password,
@@ -38,7 +34,6 @@ export const signUpSchema = z.object({
       required_error: "Please tell us how you heard about us.",
     })
     .max(30, { message: "Message too long" })
-    .optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
