@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
+import dynamic from "next/dynamic";
 
 import { Providers } from "./providers";
 
@@ -24,6 +26,9 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
+const PostHogPageView = dynamic(() => import("./PostHogPageView"), {
+  ssr: false,
+});
 
 export default function RootLayout({
   children,
@@ -33,14 +38,16 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen font-sans antialiased">
         <Providers themeProps={{ attribute: "class", forcedTheme: "white" }}>
+          <PostHogPageView />
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
             <Footer />
+            <Toaster richColors position="bottom-right" />
           </div>
         </Providers>
       </body>

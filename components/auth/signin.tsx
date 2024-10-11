@@ -1,10 +1,67 @@
 "use client";
+
 import React from "react";
 import { Button, Input, Checkbox, Link, Divider } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Provider } from "@supabase/supabase-js";
+
+import { signin, signinWithOAuth } from "@/app/(auth)/actions";
+import { SignInFormData, signInSchema } from "@/utils/form-schema";
 
 export default function SignIn() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleSignIn = async (data: SignInFormData) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const formData = new FormData();
+
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+
+      const response = await signin(formData);
+
+      if (response?.error) {
+        setErrorMessage(response.error);
+      } else {
+        reset();
+      }
+    } catch (error) {
+      setErrorMessage("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOAuthSignIn = async (provider: Provider) => {
+    setErrorMessage(null);
+    try {
+      await signinWithOAuth(provider);
+    } catch (error) {
+      setErrorMessage("An unexpected error occurred. Please try again.");
+    }
+  };
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -21,6 +78,7 @@ export default function SignIn() {
           <Button
             startContent={<Icon icon="flat-color-icons:google" width={24} />}
             variant="bordered"
+            onClick={() => handleOAuthSignIn("google")}
           >
             Continue with Google
           </Button>
@@ -32,16 +90,20 @@ export default function SignIn() {
         </div>
         <form
           className="flex flex-col gap-3"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit(handleSignIn)}
         >
           <Input
+            color={errors.email ? "danger" : "default"}
+            errorMessage={errors.email?.message}
+            isInvalid={!!errors.email}
             label="Email Address"
-            name="email"
             placeholder="Enter your email"
             type="email"
             variant="bordered"
+            {...register("email")}
           />
           <Input
+            color={errors.password ? "danger" : "default"}
             endContent={
               <button type="button" onClick={toggleVisibility}>
                 {isVisible ? (
@@ -57,11 +119,13 @@ export default function SignIn() {
                 )}
               </button>
             }
+            errorMessage={errors.password?.message}
+            isInvalid={!!errors.password}
             label="Password"
-            name="password"
             placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
             variant="bordered"
+            {...register("password")}
           />
           <div className="flex items-center justify-between px-1 py-2">
             <Checkbox name="remember" size="sm">
@@ -71,9 +135,18 @@ export default function SignIn() {
               Forgot password?
             </Link>
           </div>
-          <Button color="primary" type="submit">
-            Log In
+          <Button
+            color="primary"
+            disabled={isSubmitting}
+            isLoading={isSubmitting}
+            type="submit"
+          >
+            {isSubmitting ? "Signing in..." : "Sign In"}
           </Button>
+
+          {errorMessage && (
+            <p className="text-center text-red-500">{errorMessage}</p>
+          )}
         </form>
         <p className="text-center text-small">
           Need to create an account?&nbsp;

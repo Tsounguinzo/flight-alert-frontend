@@ -4,6 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+@layer base {
+    :root {
+        --primary-700: 30, 100%, 50%;
+    }
+}
+*::selection {
+    background-color: hsla(var(--primary-700), 10%) !important;
+    color: hsla(var(--primary-700), 100%) !important;
+}
+
 h1 {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 64px;
