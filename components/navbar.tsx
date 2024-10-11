@@ -12,7 +12,7 @@ import {
   Link,
 } from "@nextui-org/react";
 import NextLink from "next/link";
-import { ArrowRightIcon } from "@nextui-org/shared-icons";
+import { LuArrowBigRightDash } from "react-icons/lu";
 
 import { siteConfig } from "@/config/site";
 
@@ -47,16 +47,24 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex">
+        <NavbarItem className="hidden sm:flex gap-3">
           <Button
             as={Link}
-            className="font-normal text-default-600"
+            className="font-normal text-default-600 text-md"
+            href="/signin"
+            variant="light"
+          >
+            Sign In
+          </Button>
+          <Button
+            as={Link}
+            className="font-normal text-default-600 group"
             color={"primary"}
-            endContent={<ArrowRightIcon />}
-            href={siteConfig.links.github}
+            href="/signup"
             variant="ghost"
           >
             Get Started
+            <LuArrowBigRightDash className="group-hover:scale-125" size={22} />
           </Button>
         </NavbarItem>
       </NavbarContent>
