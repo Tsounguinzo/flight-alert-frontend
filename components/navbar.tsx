@@ -10,12 +10,12 @@ import {
   NavbarMenuItem,
   Button,
   Link,
+  Input,
 } from "@nextui-org/react";
 import NextLink from "next/link";
-import { LuArrowBigRightDash } from "react-icons/lu";
 
 import { siteConfig } from "@/utils/constants";
-import { HeaderLogo, Logo } from "./icons";
+import { HeaderLogo, SearchIcon } from "./icons";
 
 export const Navbar = () => {
   return (
@@ -32,10 +32,10 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify={"end"}
+        as="div"
+        className="hidden sm:flex basis-1/5 sm:basis-full items-center"
+        justify="end"
       >
         <ul className="hidden lg:flex gap-4 justify-start ml-2 w-full">
           {siteConfig.navItems.map((item) => (
@@ -56,34 +56,20 @@ export const Navbar = () => {
             </NavbarItem>
           ))}
         </ul>
-        {/* <NavbarItem className="hidden sm:flex gap-3">
-          <Button
-            as={Link}
-            className="font-normal text-default-600 text-md"
-            href="/payment"
-            variant="light"
-          >
-            Subscribe
-          </Button>
-          <Button
-            as={Link}
-            className="font-normal text-default-600 text-md"
-            href="/signin"
-            variant="light"
-          >
-            Sign In
-          </Button>
-          <Button
-            as={Link}
-            className="font-normal text-default-600 group"
-            color={"primary"}
-            href="/signup"
-            variant="ghost"
-          >
-            Get Started
-            <LuArrowBigRightDash className="group-hover:scale-125" size={22} />
-          </Button>
-        </NavbarItem> */}
+        <Input
+          classNames={{
+            base: "max-w-full sm:max-w-[10rem] h-10",
+            mainWrapper: "h-full",
+            input: "text-small",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-white dark:bg-default-500/20",
+          }}
+          placeholder="Free Search"
+          size="sm"
+          radius="full"
+          endContent={<SearchIcon size={18} />}
+          type="search"
+        />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
