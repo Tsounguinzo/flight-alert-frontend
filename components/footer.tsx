@@ -21,17 +21,17 @@ export default function Footer() {
               <h2 className="font-bold text-lg mb-4">Company</h2>
               <ul className="space-y-2">
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     Contacts
                   </a>
                 </li>
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     Support
                   </a>
                 </li>
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     FAQ
                   </a>
                 </li>
@@ -45,17 +45,17 @@ export default function Footer() {
               <h2 className="font-bold text-lg mb-4">Quick Links</h2>
               <ul className="space-y-2">
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     Flights
                   </a>
                 </li>
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     Hotels
                   </a>
                 </li>
                 <li>
-                  <a className="text-gray-400 hover:text-white" href="#">
+                  <a className="text-gray-400 hover:text-white" href="/">
                     Services
                   </a>
                 </li>
@@ -95,11 +95,11 @@ export default function Footer() {
 
         <div className="flex justify-between mt-8">
           <div className="">
-            <a className="mr-2 text-sm" href="#">
+            <a className="mr-2 text-sm" href="/">
               Terms of use
             </a>
             <span> | </span>
-            <a className="ml-2 text-sm" href="#">
+            <a className="ml-2 text-sm" href="/">
               Privacy policy
             </a>
           </div>
