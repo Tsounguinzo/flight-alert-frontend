@@ -22,9 +22,9 @@ import { frequencies, tiers } from "@/utils/constants";
 import { FrequencyEnum } from "@/types/pricing";
 import { useCheckout } from "@/hooks/useCheckout";
 
-export default function Pricing({ user }: { user: User }) {
+export default function Pricing({ user }: { user: User | null }) {
   const [selectedFrequency, setSelectedFrequency] = React.useState(
-    frequencies[0],
+    frequencies[0]
   );
   const { handleCheckout, isSubmitting } = useCheckout(user);
 
