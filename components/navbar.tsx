@@ -13,8 +13,8 @@ import {
 } from "@nextui-org/react";
 import NextLink from "next/link";
 import { LuArrowBigRightDash } from "react-icons/lu";
-import {siteConfig} from "@/utils/constants";
 
+import { siteConfig } from "@/utils/constants";
 
 export const Navbar = () => {
   return (

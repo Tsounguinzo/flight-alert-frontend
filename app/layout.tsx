@@ -7,7 +7,7 @@ import { Providers } from "./providers";
 
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import {siteConfig} from "@/utils/constants";
+import { siteConfig } from "@/utils/constants";
 
 export const metadata: Metadata = {
   title: {
@@ -39,17 +39,17 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head>
         <link
-          rel="icon"
-          type="image/png"
           href="/favicon-48x48.png"
+          rel="icon"
           sizes="48x48"
+          type="image/png"
         />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favicon.ico" rel="shortcut icon" />
         <link
+          href="/apple-touch-icon.png"
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/apple-touch-icon.png"
         />
       </head>
       <body className="min-h-screen font-sans antialiased">
