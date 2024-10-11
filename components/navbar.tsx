@@ -51,6 +51,14 @@ export const Navbar = () => {
           <Button
             as={Link}
             className="font-normal text-default-600 text-md"
+            href="/payment"
+            variant="light"
+          >
+            Subscribe
+          </Button>
+          <Button
+            as={Link}
+            className="font-normal text-default-600 text-md"
             href="/signin"
             variant="light"
           >
