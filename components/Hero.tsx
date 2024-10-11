@@ -35,10 +35,8 @@ export default function Hero() {
               }}
             >
               <div className="from-black to-blue-500">
-                Save up to <br />
-                <span className="text-primary"> 40-90% </span> off flights{" "}
-                <br />
-                from your city.
+                War On Flight Prices: <br />
+                Get The Cheapest Flight Everytime
               </div>
             </m.div>
 
