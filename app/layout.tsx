@@ -5,9 +5,9 @@ import dynamic from "next/dynamic";
 
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import {siteConfig} from "@/utils/constants";
 
 export const metadata: Metadata = {
   title: {

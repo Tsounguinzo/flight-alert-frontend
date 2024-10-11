@@ -77,3 +77,48 @@ export const tiers: Array<Tier> = [
     buttonVariant: "flat",
   },
 ];
+
+export const siteConfig = {
+  name: "Flights Alert",
+  description: "Get notified when the price of your flight drops.",
+  navItems: [
+    {
+      label: "Home",
+      href: "/",
+    },
+    {
+      label: "Flights",
+      href: "/flights",
+    },
+    {
+      label: "Pricing",
+      href: "/pricing",
+    },
+  ],
+  navMenuItems: [
+    {
+      label: "Home",
+      href: "/",
+    },
+    {
+      label: "Flights",
+      href: "/flights",
+    },
+    {
+      label: "Dashboard",
+      href: "/dashboard",
+    },
+    {
+      label: "Pricing",
+      href: "/pricing",
+    },
+    {
+      label: "Logout",
+      href: "/logout",
+    },
+  ],
+  links: {
+    github: "https://github.com/nextui-org/nextui",
+    twitter: "https://twitter.com/getnextui",
+  },
+};
