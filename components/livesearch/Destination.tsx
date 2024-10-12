@@ -2,7 +2,17 @@ import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
 import airportsData from "@/data/airport-data";
 import { FaPlaneArrival } from "react-icons/fa";
 
-export default function Destination() {
+export default function Destination({
+  onChange,
+  destination,
+}: {
+  onChange: any;
+  destination: string;
+}) {
+  const handleSelect = (item: any) => {
+    console.log(item);
+    onChange(item); // Pass the selected value to the parent
+  };
   return (
     <Autocomplete
       className="w-full"
@@ -12,6 +22,8 @@ export default function Destination() {
         selectorButton: "text-default-500",
       }}
       defaultItems={airportsData}
+      onInputChange={handleSelect}
+      value={destination}
       inputProps={{
         classNames: {
           input: "ml-1",

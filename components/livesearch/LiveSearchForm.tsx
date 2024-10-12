@@ -1,5 +1,5 @@
-import { Select, SelectItem } from "@nextui-org/react";
-import React from "react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+import React, { useState } from "react";
 
 import PassengerSelector from "./PassengerSelector";
 import Origin from "./Origin";
@@ -7,6 +7,8 @@ import Destination from "./Destination";
 import { AiOutlineSwap } from "react-icons/ai";
 
 function LiveSearchForm() {
+  const [origin, setOrigin] = useState(""); // State for origin
+  const [destination, setDestination] = useState(""); // State for destination
   const flightTypes = [
     { label: "Round Trip", key: "Round Trip" },
     { label: "One Way", key: "One Way" },
@@ -18,6 +20,18 @@ function LiveSearchForm() {
     { label: "Business", key: "Business" },
     { label: "First", key: "First" },
   ];
+  const handleOriginChange = (selected: string) => {
+    setOrigin(selected);
+  };
+
+  const handleDestinationChange = (selected: string) => {
+    setDestination(selected);
+  };
+
+  const handleSwap = () => {
+    console.log(destination);
+    console.log(origin);
+  };
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="flex items-center gap-3 w-full">
@@ -45,11 +59,16 @@ function LiveSearchForm() {
       </div>
       <div className="flex items-center gap-3 w-full">
         <div>
-          <Origin />
+          <Origin onChange={handleOriginChange} origin={origin} />
         </div>
-        <AiOutlineSwap />
+        <Button isIconOnly onClick={handleSwap}>
+          <AiOutlineSwap />
+        </Button>
         <div>
-          <Destination />
+          <Destination
+            onChange={handleDestinationChange}
+            destination={destination}
+          />
         </div>
       </div>
     </div>

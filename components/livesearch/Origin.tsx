@@ -2,7 +2,15 @@ import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
 import airportsData from "@/data/airport-data";
 import { FaPlaneDeparture } from "react-icons/fa";
 
-export default function Origin() {
+interface OriginProps {
+  onChange: (item: string) => void;
+  origin: string; // Allow origin to be null initially
+}
+export default function Origin({ onChange, origin }: OriginProps) {
+  const handleSelect = (item: any) => {
+    console.log(item);
+    onChange(item); // Pass the selected value to the parent
+  };
   return (
     <Autocomplete
       classNames={{
@@ -10,7 +18,9 @@ export default function Origin() {
         listboxWrapper: "max-h-[320px]",
         selectorButton: "text-default-500",
       }}
+      onSelectionChange={handleSelect}
       defaultItems={airportsData}
+      selectedKey={origin} // Set value based on origin
       inputProps={{
         classNames: {
           input: "ml-1",
