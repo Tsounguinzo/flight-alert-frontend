@@ -4,6 +4,7 @@ import React from "react";
 import PassengerSelector from "./PassengerSelector";
 import Origin from "./Origin";
 import Destination from "./Destination";
+import { AiOutlineSwap } from "react-icons/ai";
 
 function LiveSearchForm() {
   const flightTypes = [
@@ -46,6 +47,7 @@ function LiveSearchForm() {
         <div>
           <Origin />
         </div>
+        <AiOutlineSwap />
         <div>
           <Destination />
         </div>

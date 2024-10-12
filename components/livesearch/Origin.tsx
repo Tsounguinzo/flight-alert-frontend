@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
 import airportsData from "@/data/airport-data";
-import { FaPlaneDeparture } from "react-icons/fa6";
+import { FaPlaneDeparture } from "react-icons/fa";
 
 export default function Origin() {
   return (
