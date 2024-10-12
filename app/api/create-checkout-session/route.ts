@@ -47,7 +47,7 @@ async function createCheckoutSession(request: NextRequest & { user: User }) {
       return NextResponse.json(
         {
           error:
-            "Error checking user existing subscription. Please contact PearAI team.",
+            "Error checking user existing subscription. Please contact FlyFast team.",
         },
         { status: 500 },
       );

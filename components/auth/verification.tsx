@@ -57,11 +57,11 @@ export default function Verification() {
               Make sure to check your spam folder if you don&apos;t see it!
             </div>
             {email && (
-              <div className="mt-2 text-gray-400">
+              <div className="mt-4">
                 Didn&apos;t receive an email?{" "}
                 <Button
                   as={Link}
-                  className="p-0 text-gray-700 hover:text-primary-800"
+                  className="p-3 text-gray-700"
                   disabled={isSubmitting}
                   isLoading={isSubmitting}
                   onClick={() => handleResendEmail()}

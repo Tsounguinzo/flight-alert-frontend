@@ -13,7 +13,7 @@ export type ColumnsKey =
   | "returnDate"
   | "departingAirport"
   | "returningAirport"
-    | "stay"
+  | "stay"
   | "price"
   | "actions";
 
@@ -23,7 +23,7 @@ export const INITIAL_VISIBLE_COLUMNS: ColumnsKey[] = [
   "departingAirport",
   "returningAirport",
   "price",
-    "stay",
+  "stay",
   "actions",
 ];
 
@@ -33,7 +33,8 @@ export const columns = [
     name: "Return Date",
     uid: "returnDate",
     info: "Day of the flight from departure airport",
-  },{
+  },
+  {
     name: "Stay",
     uid: "stay",
     info: "Number of days",
@@ -95,7 +96,10 @@ const generateMockFlightData = (count: number): Flight[] => {
     const flight: Flight = {
       id: i,
       departureDate: departureDate,
-      stay: Math.floor((returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24)),
+      stay: Math.floor(
+        (returnDate.getTime() - departureDate.getTime()) /
+          (1000 * 60 * 60 * 24),
+      ),
       returnDate: returnDate,
       departingAirport: getRandomAirport(),
       returningAirport: getRandomAirport(),

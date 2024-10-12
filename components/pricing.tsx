@@ -10,16 +10,12 @@ import {
   Chip,
   cn,
   Divider,
-  Link,
   Spacer,
-  Tab,
-  Tabs,
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { User } from "@supabase/supabase-js";
 
 import { frequencies, tiers } from "@/utils/constants";
-import { FrequencyEnum } from "@/types/pricing";
 import { useCheckout } from "@/hooks/useCheckout";
 
 export default function Pricing({ user }: { user: User | null }) {
@@ -28,11 +24,12 @@ export default function Pricing({ user }: { user: User | null }) {
   );
   const { handleCheckout, isSubmitting } = useCheckout(user);
 
-  const onFrequencyChange = (selectedKey: React.Key) => {
+  /* const onFrequencyChange = (selectedKey: React.Key) => {
     const frequencyIndex = frequencies.findIndex((f) => f.key === selectedKey);
 
     setSelectedFrequency(frequencies[frequencyIndex]);
   };
+  */
 
   return (
     <div className="relative flex max-w-full flex-col items-center justify-center">
@@ -59,7 +56,7 @@ export default function Pricing({ user }: { user: User | null }) {
         </h2>
       </div>
       <Spacer y={8} />
-      <Tabs
+      {/*<Tabs
         classNames={{
           tabList: "bg-default-100/70",
           cursor: "bg-background dark:bg-default-200/30",
@@ -84,6 +81,7 @@ export default function Pricing({ user }: { user: User | null }) {
         <Tab key={FrequencyEnum.Daily} title="Pay Daily" />
       </Tabs>
       <Spacer y={12} />
+      */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tiers.map((tier) => (
           <Card
@@ -133,22 +131,21 @@ export default function Pricing({ user }: { user: User | null }) {
               </ul>
             </CardBody>
             <CardFooter>
-              <Button
-                fullWidth
-                aria-busy={isSubmitting}
-                aria-label={`Subscribe to plan`}
-                as={Link}
-                color="primary"
-                disabled={isSubmitting}
-                href={tier.href}
-                isDisabled={tier.price == "Free"}
-                variant={tier.buttonVariant}
-                onClick={() =>
-                  selectedFrequency.priceSuffix &&
-                  tier.price != "Free" &&
-                  handleCheckout(selectedFrequency.priceSuffix)
-                }
-              >
+                <Button
+                    fullWidth
+                    key={tier.key}
+                    aria-busy={isSubmitting}
+                    aria-label={`Subscribe to plan`}
+                    color="primary"
+                    disabled={isSubmitting || tier.price === "Free"}
+                    variant={tier.buttonVariant}
+                    onClick={() => {
+                        console.log("Button clicked");
+                        if (selectedFrequency.priceSuffix && tier.price !== "Free") {
+                            handleCheckout(selectedFrequency.priceSuffix);
+                        }
+                    }}
+                >
                 {isSubmitting ? "Processing..." : tier.buttonText}
               </Button>
             </CardFooter>

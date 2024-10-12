@@ -1,7 +1,11 @@
 "use client";
 
 import type { Selection, SortDescriptor } from "@nextui-org/react";
-import type { ColumnsKey, StatusOptions, Users } from "./dataFromNextUI_DO_NOT_USE";
+import type {
+  ColumnsKey,
+  StatusOptions,
+  Users,
+} from "./dataFromNextUI_DO_NOT_USE";
 import type { Key } from "@react-types/shared";
 
 import {
@@ -40,7 +44,11 @@ import { EditLinearIcon } from "./edit";
 import { DeleteFilledIcon } from "./delete";
 import { ArrowDownIcon } from "./arrow-down";
 import { ArrowUpIcon } from "./arrow-up";
-import { columns, INITIAL_VISIBLE_COLUMNS, users } from "./dataFromNextUI_DO_NOT_USE";
+import {
+  columns,
+  INITIAL_VISIBLE_COLUMNS,
+  users,
+} from "./dataFromNextUI_DO_NOT_USE";
 import { Status } from "./Status";
 
 import { useMemoizedCallback } from "@/hooks/use-memoized-callback";

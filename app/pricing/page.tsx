@@ -16,9 +16,5 @@ export default async function Pricing() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return (
-    <>
-      <PricingPage user={user} />
-    </>
-  );
+  return <PricingPage user={user} />;
 }

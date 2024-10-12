@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en" className="bg-white">
+    <html suppressHydrationWarning className="bg-white" lang="en">
       <head>
         <link
           href="/favicon-48x48.png"

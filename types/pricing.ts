@@ -1,8 +1,7 @@
 import { ButtonProps } from "@nextui-org/react";
 
 export enum FrequencyEnum {
-  Monthly = "mothly",
-  Daily = "daily",
+  Monthly = "monthly",
 }
 
 export enum TiersEnum {
@@ -23,7 +22,6 @@ export type Tier = {
   price:
     | {
         [FrequencyEnum.Monthly]: string;
-        [FrequencyEnum.Daily]: string;
       }
     | string;
   priceSuffix?: string;

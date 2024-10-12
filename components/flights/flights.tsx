@@ -1,9 +1,9 @@
 "use client";
 
-import {Link, Selection, SortDescriptor} from "@nextui-org/react";
 import type { ColumnsKey, Flight } from "./data";
 import type { Key } from "@react-types/shared";
 
+import { Link, Selection, SortDescriptor } from "@nextui-org/react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -31,7 +31,6 @@ import { SearchIcon } from "@nextui-org/shared-icons";
 import React, { useMemo, useCallback, useState } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "@nextui-org/react";
-
 
 import { ArrowDownIcon } from "./arrow-down";
 import { ArrowUpIcon } from "./arrow-up";
@@ -240,23 +239,23 @@ export default function FlightsComponent() {
               {Number(cellValue).toFixed(2)} $US
             </div>
           );
-          case "stay":
-            return (
-                <div className="text-nowrap text-small text-default-foreground">
-                {cellValue} days
-                </div>
-            );
+        case "stay":
+          return (
+            <div className="text-nowrap text-small text-default-foreground">
+              {cellValue} days
+            </div>
+          );
         case "actions":
           return (
-              <Button
-                as={Link}
-                target={"_blank"}
-                href={`/flights/${flight.id}`}
-                variant="flat"
-                color="primary"
-                >
-                Book Now
-                </Button>
+            <Button
+              as={Link}
+              color="primary"
+              href={`/flights/${flight.id}`}
+              target={"_blank"}
+              variant="flat"
+            >
+              Book Now
+            </Button>
           );
         default:
           return cellValue;
