@@ -39,7 +39,7 @@ export const Navbar = () => {
       >
         <ul className="hidden lg:flex gap-4 justify-end ml-2 w-full">
           {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
+            <NavbarItem key={`${item.href}-${item.label}`}>
               <Link href={item.href}>
                 <Button
                   radius="full"

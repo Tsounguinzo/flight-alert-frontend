@@ -52,14 +52,12 @@ export default function RootLayout({
           sizes="180x180"
         />
       </head>
-      <body className="min-h-screen font-sans antialiased bg-white">
+      <body className="min-h-screen font-sans antialiased bg-white vsc-initialized">
         <Providers themeProps={{ attribute: "class", forcedTheme: "white" }}>
           <PostHogPageView />
           <div className="relative flex flex-col h-screen bg-white">
             <Navbar />
-            <main className="container mx-auto max-w-7xl py-20 px-6 flex-grow">
-              {children}
-            </main>
+            <main className="w-full py-20 px-6 flex-grow">{children}</main>
             <Footer />
             <Toaster richColors position="bottom-right" />
           </div>

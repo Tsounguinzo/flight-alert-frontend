@@ -2,6 +2,8 @@ import { Select, SelectItem } from "@nextui-org/react";
 import React from "react";
 
 import PassengerSelector from "./PassengerSelector";
+import Origin from "./Origin";
+import Destination from "./Destination";
 
 function LiveSearchForm() {
   const flightTypes = [
@@ -16,9 +18,10 @@ function LiveSearchForm() {
     { label: "First", key: "First" },
   ];
   return (
-    <div>
-      <div className="flex items-center gap-3">
+    <div className="flex flex-col gap-6 w-full">
+      <div className="flex items-center gap-3 w-full">
         <Select
+          aria-label="type"
           radius={"sm"}
           defaultSelectedKeys={["Round Trip"]}
           className="max-w-[33%]"
@@ -29,6 +32,7 @@ function LiveSearchForm() {
         </Select>
         <PassengerSelector />
         <Select
+          aria-label="class"
           radius={"sm"}
           defaultSelectedKeys={["Economy"]}
           className="max-w-[33%]"
@@ -37,6 +41,14 @@ function LiveSearchForm() {
             <SelectItem key={fCalss.key}>{fCalss.label}</SelectItem>
           ))}
         </Select>
+      </div>
+      <div className="flex items-center gap-3 w-full">
+        <div>
+          <Origin />
+        </div>
+        <div>
+          <Destination />
+        </div>
       </div>
     </div>
   );

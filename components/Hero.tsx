@@ -14,7 +14,7 @@ export default function Hero() {
       <LazyMotion features={domAnimation}>
         <m.div
           animate="kick"
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 w-full"
           exit="auto"
           initial="auto"
           transition={{
@@ -29,7 +29,7 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <m.div
               animate={{ filter: "blur(0px)", opacity: 1, x: 0 }}
-              className="text-start text-[clamp(40px,10vw,44px)] font-bold leading-[1.2] tracking-tighter sm:text-[80px]"
+              className="text-start text-[clamp(40px,10vw,44px)] font-bold leading-[1.2] tracking-tighter sm:text-[80px] w-full"
               initial={{ filter: "blur(16px)", opacity: 0, x: 15 + 1 * 2 }}
               transition={{
                 bounce: 0,
@@ -46,7 +46,7 @@ export default function Hero() {
 
             <m.div
               animate={{ filter: "blur(0px)", opacity: 1, x: 0 }}
-              className="text-start font-normal leading-7 text-default-500 sm:w-[466px] sm:text-[20px]"
+              className="text-start font-normal leading-7 text-default-500 sm:w-[466px] sm:text-[20px] w-full"
               initial={{ filter: "blur(16px)", opacity: 0, x: 15 + 1 * 3 }}
               transition={{
                 bounce: 0,
@@ -97,7 +97,7 @@ export default function Hero() {
             </m.div>
             <m.div
               animate={{ filter: "blur(0px)", opacity: 1, x: 0 }}
-              className="text-start font-normal leading-7 text-default-500 sm:w-[466px] sm:text-[20px]"
+              className="text-start font-normal leading-7 text-default-500 sm:text-[20px] w-full"
               initial={{ filter: "blur(16px)", opacity: 0, x: 15 + 1 * 4 }}
               transition={{
                 bounce: 0,

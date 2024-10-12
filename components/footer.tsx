@@ -39,7 +39,7 @@ export default function Footer() {
           </div>
 
           {/* Company Links */}
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center hidden sm:block">
             <div>
               <h2 className="font-bold text-lg mb-4">Useful Links</h2>
               <ul className="space-y-6">
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           {/* Content Links */}
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center hidden sm:block">
             <div>
               <h2 className="font-bold text-lg mb-4">Content</h2>
               <ul className="space-y-2">
@@ -105,7 +105,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center hidden sm:block">
             <div>
               <h2 className="font-bold text-lg mb-4">Contact Us</h2>
               <ul className="space-y-2">
