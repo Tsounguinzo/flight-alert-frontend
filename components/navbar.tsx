@@ -32,18 +32,17 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
+      <div className="flex-1"></div>
       <NavbarContent
         as="div"
-        className="hidden sm:flex basis-1/5 sm:basis-full items-center"
-        justify="end"
+        className="hidden sm:flex basis-1/5 sm:basis-full items-center justify-end"
       >
-        <ul className="hidden lg:flex gap-4 justify-start ml-2 w-full">
+        <ul className="hidden lg:flex gap-4 justify-end ml-2 w-full">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <Link href={item.href}>
                 <Button
                   radius="full"
-                  as={Link}
                   type="button"
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -56,20 +55,6 @@ export const Navbar = () => {
             </NavbarItem>
           ))}
         </ul>
-        <Input
-          classNames={{
-            base: "max-w-full sm:max-w-[10rem] h-10",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-white dark:bg-default-500/20",
-          }}
-          placeholder="Free Search"
-          size="sm"
-          radius="full"
-          endContent={<SearchIcon size={18} />}
-          type="search"
-        />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

@@ -84,7 +84,7 @@ export const siteConfig = {
   navItems: [
     {
       label: "Slap Me",
-      href: "/s",
+      href: "/",
     },
     {
       label: "Motivation",

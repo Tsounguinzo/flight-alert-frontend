@@ -38,3 +38,7 @@ h3 {
   font-size: 32px;
   line-height: 48px;
 }
+
+.bg-custom-blue {
+  background-color: #214ce7;
+}

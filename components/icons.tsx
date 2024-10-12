@@ -342,3 +342,55 @@ export const SearchIcon = ({
     />
   </svg>
 );
+
+export const ArrowUp = ({
+  size = 24,
+  strokeWidth = 1.5,
+  width = 15,
+  height = 15,
+  ...props
+}) => (
+  <svg
+    {...props}
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    role="presentation"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="1.5"
+    viewBox="0 0 24 24"
+    width="1em"
+    data-slot="selectorIcon"
+  >
+    <path d="m6 15 6-6 6 6"></path>
+  </svg>
+);
+
+export const ArrowDown = ({
+  size = 24,
+  strokeWidth = 1.5,
+  width = 15,
+  height = 15,
+  ...props
+}) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    role="presentation"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="1.5"
+    viewBox="0 0 24 24"
+    width="1em"
+    data-slot="selectorIcon"
+    data-open="true"
+  >
+    <path d="m6 9 6 6 6-6"></path>
+  </svg>
+);
