@@ -1,0 +1,455 @@
+{
+  "globalCheapestOffers": {
+    "offers": [
+      {
+        "tripLength": 8,
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 8,
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDYoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 6,
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEwKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 6,
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDYoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 6,
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDgoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 7,
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 9,
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDgoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE3KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 5,
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-09T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTA5KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 5,
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 10,
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      {
+        "tripLength": 10,
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 510,
+        "link": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE3KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      }
+    ],
+    "price": 510
+  },
+  "tripLength_10": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 617
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 609
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 590
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 530
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-16T00:00:00Z",
+        "price": 545
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-18T00:00:00Z",
+        "price": 624
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-19T00:00:00Z",
+        "price": 609
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-20T00:00:00Z",
+        "price": 588
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [3, 6],
+      "links": {
+        "3": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en",
+        "6": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE3KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  },
+  "tripLength_5": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-06T00:00:00Z",
+        "price": 538
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-07T00:00:00Z",
+        "price": 588
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-08T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-09T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 612
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 555
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 592
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 588
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [3, 6],
+      "links": {
+        "3": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTA5KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en",
+        "6": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  },
+  "tripLength_6": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-07T00:00:00Z",
+        "price": 538
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-08T00:00:00Z",
+        "price": 588
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-09T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 612
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 547
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 592
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-16T00:00:00Z",
+        "price": 620
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [3, 5, 7],
+      "links": {
+        "3": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEwKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en",
+        "5": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDYoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en",
+        "7": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDgoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  },
+  "tripLength_7": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-08T00:00:00Z",
+        "price": 538
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-09T00:00:00Z",
+        "price": 609
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 612
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 530
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 538
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-16T00:00:00Z",
+        "price": 605
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 512
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [6],
+      "links": {
+        "6": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDcoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  },
+  "tripLength_8": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-09T00:00:00Z",
+        "price": 570
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 618
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 620
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 530
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 547
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-16T00:00:00Z",
+        "price": 570
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 618
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-18T00:00:00Z",
+        "price": 620
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [3, 5],
+      "links": {
+        "3": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDQoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTEyKAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en",
+        "5": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDYoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE0KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  },
+  "tripLength_9": {
+    "value": [
+      {
+        "startDate": "2025-05-01T00:00:00Z",
+        "returnDate": "2025-05-10T00:00:00Z",
+        "price": 620
+      },
+      {
+        "startDate": "2025-05-02T00:00:00Z",
+        "returnDate": "2025-05-11T00:00:00Z",
+        "price": 620
+      },
+      {
+        "startDate": "2025-05-03T00:00:00Z",
+        "returnDate": "2025-05-12T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-04T00:00:00Z",
+        "returnDate": "2025-05-13T00:00:00Z",
+        "price": 530
+      },
+      {
+        "startDate": "2025-05-05T00:00:00Z",
+        "returnDate": "2025-05-14T00:00:00Z",
+        "price": 512
+      },
+      {
+        "startDate": "2025-05-06T00:00:00Z",
+        "returnDate": "2025-05-15T00:00:00Z",
+        "price": 530
+      },
+      {
+        "startDate": "2025-05-07T00:00:00Z",
+        "returnDate": "2025-05-16T00:00:00Z",
+        "price": 547
+      },
+      {
+        "startDate": "2025-05-08T00:00:00Z",
+        "returnDate": "2025-05-17T00:00:00Z",
+        "price": 510
+      },
+      {
+        "startDate": "2025-05-09T00:00:00Z",
+        "returnDate": "2025-05-18T00:00:00Z",
+        "price": 620
+      },
+      {
+        "startDate": "2025-05-10T00:00:00Z",
+        "returnDate": "2025-05-19T00:00:00Z",
+        "price": 512
+      }
+    ],
+    "cheapestOffer": {
+      "indices": [7],
+      "links": {
+        "7": "https://www.google.com/travel/flights/search?tfs=GjsSCjIwMjUtMDUtMDgoAzoCRVk6AkVLYJgRagcIARIDSkZLcgcIARIDQkNOggEDWVFCggEDSkVEkAGIDho7EgoyMDI1LTA1LTE3KAM6AkVZOgJFS2CYEWoHCAESA0JDTnIHCAESA0pGS4IBA1lRQoIBA0pFRJABiA5CAQFIAWCA8QSIAQGYAQE&curr=USD&hl=en"
+      },
+      "price": 510
+    }
+  }
+}

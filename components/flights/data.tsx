@@ -1,15 +1,43 @@
+import sampleFlights from "@/data/sample-flights.json";
+
+type Offer = {
+  tripLength?: number; // For global offers
+  startDate: string;
+  returnDate: string;
+  price: number;
+  link?: string; // Optional initially, can be set later
+};
+
+type FlightCategory = {
+  value: Offer[];
+  cheapestOffer: {
+    indices: number[];
+    links: Record<number, string>;
+    price: number;
+  };
+};
+
+export type FlightData = {
+  globalCheapestOffers: {
+    offers: Offer[]; // Global offers
+    price: number; // Price of the global cheapest offer
+  };
+  [tripLength: `tripLength_${number}`]: FlightCategory; // Dynamic trip lengths (e.g., tripLength_5, tripLength_10)
+};
+
 export type Flight = {
-  id: number;
-  departureDate: Date;
+  id: string;
+  startDate: Date;
   returnDate: Date;
   departingAirport: string;
   returningAirport: string;
   stay: number;
   price: number;
+  link?: string;
 };
 
 export type ColumnsKey =
-  | "departureDate"
+  | "startDate"
   | "returnDate"
   | "departingAirport"
   | "returningAirport"
@@ -18,7 +46,7 @@ export type ColumnsKey =
   | "actions";
 
 export const INITIAL_VISIBLE_COLUMNS: ColumnsKey[] = [
-  "departureDate",
+  "startDate",
   "returnDate",
   "departingAirport",
   "returningAirport",
@@ -28,7 +56,7 @@ export const INITIAL_VISIBLE_COLUMNS: ColumnsKey[] = [
 ];
 
 export const columns = [
-  { name: "Departure Date", uid: "departureDate" },
+  { name: "Departure Date", uid: "startDate" },
   {
     name: "Return Date",
     uid: "returnDate",
@@ -53,63 +81,45 @@ export const columns = [
   { name: "Actions", uid: "actions" },
 ];
 
-function getRandomDate(start: Date, end: Date): Date {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
-  );
-}
+export function convertFlightsToTableData(
+  flightData: FlightData,
+  departingAirport: string,
+  returningAirport: string,
+): Flight[] {
+  const flights: Flight[] = [];
 
-function getRandomAirport(): string {
-  const airports = [
-    "JFK",
-    "LAX",
-    "ORD",
-    "ATL",
-    "SFO",
-    "CDG",
-    "LHR",
-    "AMS",
-    "HND",
-    "DXB",
-  ];
+  for (const tripLengthKey in flightData) {
+    if (tripLengthKey === "globalCheapestOffers") continue; // Skip global offers
 
-  return airports[Math.floor(Math.random() * airports.length)];
-}
+    const flightCategory = flightData[
+      tripLengthKey as keyof FlightData
+    ] as FlightCategory;
 
-function getRandomPrice(min: number = 100, max: number = 2000): number {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+    const tripLength = parseInt(tripLengthKey.split("_")[1]);
 
-const generateMockFlightData = (count: number): Flight[] => {
-  const mockData: Flight[] = [];
+    const linksMap = flightCategory.cheapestOffer.links;
 
-  for (let i = 0; i < count; i++) {
-    const departureDate = getRandomDate(
-      new Date(2024, 0, 1),
-      new Date(2025, 0, 1),
-    );
-    const returnDate = getRandomDate(
-      new Date(departureDate),
-      new Date(2025, 0, 1),
-    );
+    const mappedFlights = flightCategory.value.map((offer, index) => ({
+      startDate: new Date(offer.startDate),
+      returnDate: new Date(offer.returnDate),
+      price: offer.price,
+      id: `${tripLength}_${index}`,
+      departingAirport: departingAirport,
+      returningAirport: returningAirport,
+      stay: tripLength,
+      link: linksMap[index] || undefined,
+    }));
 
-    const flight: Flight = {
-      id: i,
-      departureDate: departureDate,
-      stay: Math.floor(
-        (returnDate.getTime() - departureDate.getTime()) /
-          (1000 * 60 * 60 * 24),
-      ),
-      returnDate: returnDate,
-      departingAirport: getRandomAirport(),
-      returningAirport: getRandomAirport(),
-      price: getRandomPrice(),
-    };
-
-    mockData.push(flight);
+    flights.push(...mappedFlights);
   }
 
-  return mockData;
+  return flights;
+}
+
+const generateMockFlightData = (flightData: FlightData) => {
+  return convertFlightsToTableData(flightData, "JFK", "LAX");
 };
 
-export const flights: Flight[] = generateMockFlightData(100);
+export const flights: Flight[] = generateMockFlightData(
+  sampleFlights as FlightData,
+);

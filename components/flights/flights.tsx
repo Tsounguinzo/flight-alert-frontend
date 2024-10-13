@@ -47,11 +47,11 @@ export default function FlightsComponent() {
   const [rowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "departureDate",
+    column: "startDate",
     direction: "ascending",
   });
 
-  const [departureDateFilter, setDepartureDateFilter] = useState("all");
+  const [startDateFilter, setStartDateFilter] = useState("all");
   const [returnDateFilter, setReturnDateFilter] = useState("all");
   const [departingAirportFilter, setDepartingAirportFilter] = useState("all");
   const [returningAirportFilter, setReturningAirportFilter] = useState("all");
@@ -78,15 +78,14 @@ export default function FlightsComponent() {
   // Filter flights based on various criteria
   const itemFilter = useCallback(
     (flight: Flight) => {
-      const allDepartureDate = departureDateFilter === "all";
+      const allStartDate = startDateFilter === "all";
       const allReturnDate = returnDateFilter === "all";
       const allDepartingAirport = departingAirportFilter === "all";
       const allReturningAirport = returningAirportFilter === "all";
       const allPrice = priceFilter === "all";
 
-      const departureMatch =
-        allDepartureDate ||
-        new Date(flight.departureDate) >= new Date(departureDateFilter);
+      const startMatch =
+        allStartDate || new Date(flight.startDate) >= new Date(startDateFilter);
       const returnMatch =
         allReturnDate ||
         new Date(flight.returnDate) <= new Date(returnDateFilter);
@@ -101,7 +100,7 @@ export default function FlightsComponent() {
       const priceMatch = allPrice || flight.price <= priceFilter;
 
       return (
-        departureMatch &&
+        startMatch &&
         returnMatch &&
         departingAirportMatch &&
         returningAirportMatch &&
@@ -109,7 +108,7 @@ export default function FlightsComponent() {
       );
     },
     [
-      departureDateFilter,
+      startDateFilter,
       returnDateFilter,
       departingAirportFilter,
       returningAirportFilter,
@@ -141,23 +140,16 @@ export default function FlightsComponent() {
   // Pagination calculations
   const pages = Math.ceil(filteredItems.length / rowsPerPage) || 1;
 
-  const items = useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
-
   // Sorting logic
   const sortedItems = useMemo(() => {
-    return [...items].sort((a: Flight, b: Flight) => {
+    return [...filteredItems].sort((a: Flight, b: Flight) => {
       const col = sortDescriptor.column as keyof Flight;
 
       let first = a[col];
       let second = b[col];
 
       // Handle date and price sorting
-      if (col === "departureDate" || col === "returnDate") {
+      if (col === "startDate" || col === "returnDate") {
         first = new Date(first as string).getTime();
         second = new Date(second as string).getTime();
       } else if (col === "price") {
@@ -165,11 +157,26 @@ export default function FlightsComponent() {
         second = second as number;
       }
 
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      const cmp =
+        first === undefined || second === undefined
+          ? 0
+          : first < second
+            ? -1
+            : first > second
+              ? 1
+              : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
-  }, [sortDescriptor, items]);
+  }, [sortDescriptor, filteredItems]);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return sortedItems.slice(start, end);
+  }, [page, sortedItems, rowsPerPage]);
+
 
   // Handle selection keys filtering
   const filterSelectedKeys = useMemo(() => {
@@ -202,7 +209,7 @@ export default function FlightsComponent() {
       const cellValue = flight[flightKey as unknown as keyof Flight] as string;
 
       switch (flightKey) {
-        case "departureDate":
+        case "startDate":
         case "returnDate":
           return (
             <div className="flex items-center gap-1">
@@ -250,7 +257,7 @@ export default function FlightsComponent() {
             <Button
               as={Link}
               color="primary"
-              href={`/flights/${flight.id}`}
+              href={flight?.link || "#"}
               target={"_blank"}
               variant="flat"
             >
@@ -380,11 +387,11 @@ export default function FlightsComponent() {
                       <Radio value="ORD">ORD - Chicago</Radio>
                     </RadioGroup>
 
-                    {/* Departure Date Filter */}
+                    {/* start Date Filter */}
                     <RadioGroup
-                      label="Departure Date"
-                      value={departureDateFilter}
-                      onValueChange={setDepartureDateFilter}
+                      label="start Date"
+                      value={startDateFilter}
+                      onValueChange={setStartDateFilter}
                     >
                       <Radio value="all">All</Radio>
                       <Radio value={new Date().toISOString()}>Today</Radio>
@@ -575,12 +582,12 @@ export default function FlightsComponent() {
     filterSelectedKeys,
     headerColumns,
     sortDescriptor,
-    departureDateFilter,
+    startDateFilter,
     returnDateFilter,
     departingAirportFilter,
     returningAirportFilter,
     priceFilter,
-    setDepartureDateFilter,
+    setStartDateFilter,
     setReturnDateFilter,
     setDepartingAirportFilter,
     setReturningAirportFilter,
@@ -730,7 +737,7 @@ export default function FlightsComponent() {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
+        <TableBody emptyContent={"No users found"} items={items}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (
