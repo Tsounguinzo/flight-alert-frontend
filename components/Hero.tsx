@@ -5,10 +5,12 @@ import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
 import { MdFlight } from "react-icons/md";
 import { useState } from "react";
 import { MdElectricBolt } from "react-icons/md";
+
 import LiveSearchForm from "./livesearch/LiveSearchForm";
 
 export default function Hero() {
   const [activeButton, setActiveButton] = useState("liveSearch");
+
   return (
     <section className="z-20 flex flex-col items-start gap-[18px] sm:gap-6 w-full">
       <LazyMotion features={domAnimation}>
@@ -58,12 +60,12 @@ export default function Hero() {
               <div className="flex">
                 {/* Button 1: Live Search */}
                 <Button
-                  startContent={<MdFlight size={25} />}
                   className={`py-8 transition-all duration-500 rounded-r-none ${
                     activeButton === "liveSearch"
                       ? "bg-blue-600 text-white"
                       : "bg-gray-200 text-black"
                   }`}
+                  startContent={<MdFlight size={25} />}
                   onClick={() => setActiveButton("liveSearch")}
                 >
                   Live Search
@@ -73,21 +75,21 @@ export default function Hero() {
                 <div className="relative">
                   {/* Soon label */}
                   <span
+                    className="absolute -top-1 left-3 z-10 transform -translate-y-2 -translate-x-2 text-white text-xs px-2 py-1 rounded-full"
                     style={{
                       backgroundColor: "#FF7F0B",
                     }}
-                    className="absolute -top-1 left-3 z-10 transform -translate-y-2 -translate-x-2 text-white text-xs px-2 py-1 rounded-full"
                   >
                     Soon
                   </span>
 
                   <Button
-                    startContent={<MdElectricBolt size={25} />}
                     className={`py-8 px-10 transition-all duration-500 rounded-l-none rounded-r-full ${
                       activeButton === "alerts"
                         ? "bg-blue-600 text-white"
                         : "bg-gray-200 text-black"
                     }`}
+                    startContent={<MdElectricBolt size={25} />}
                     onClick={() => setActiveButton("alerts")}
                   >
                     Alerts

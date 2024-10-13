@@ -12,12 +12,12 @@ import {
 } from "@nextui-org/react";
 import NextLink from "next/link";
 
-import { siteConfig } from "@/utils/constants";
 import { HeaderLogo } from "../icons";
+
+import { siteConfig } from "@/utils/constants";
 import AuthButton from "@/components/nav/authbutton";
 
-export const Navbar = ({user}) => {
-
+export const Navbar = ({ user }) => {
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -27,22 +27,25 @@ export const Navbar = ({user}) => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit items-center">
           <HeaderLogo />
-          <NextLink className="flex justify-start items-center gap-1" href="/public">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
             <p className="font-extrabold text-2xl">FlyFast</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent
-          as="div"
-          className="hidden sm:flex sm:basis-full items-center justify-end"
+        as="div"
+        className="hidden sm:flex sm:basis-full items-center justify-end"
       >
         <ul className="hidden lg:flex gap-12 w-full">
           {siteConfig.navItems.map((item) => (
-              <NavbarItem key={`${item.href}-${item.label}`}>
-                <Link href={item.href} className="text-white underline p-3 hover:bg-foreground/50 rounded-3xl">
-                    {item.label}
-                </Link>
-              </NavbarItem>
+            <NavbarItem key={`${item.href}-${item.label}`}>
+              <Link
+                className="text-white underline p-3 hover:bg-foreground/50 rounded-3xl"
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            </NavbarItem>
           ))}
         </ul>
       </NavbarContent>

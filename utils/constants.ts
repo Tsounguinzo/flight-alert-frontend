@@ -10,7 +10,7 @@ export const siteConfig = {
   navItems: [
     {
       label: "Home",
-      href: "/home",
+      href: "/",
     },
     {
       label: "Flights",
@@ -24,7 +24,7 @@ export const siteConfig = {
   navMenuItems: [
     {
       label: "Home",
-      href: "/home",
+      href: "/",
     },
     {
       label: "Flights",
