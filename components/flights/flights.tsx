@@ -198,8 +198,8 @@ export default function FlightsComponent() {
     return resultKeys;
   }, [selectedKeys, filteredItems, filterValue]);
 
-  const getMemberInfoProps = useMemoizedCallback(() => ({
-    onClick: handleMemberClick,
+  const getSortableFieldsProps = useMemoizedCallback((col: string) => ({
+    onClick: () => handleFieldClick(col),
   }));
 
   const renderCell = useMemoizedCallback(
@@ -669,9 +669,9 @@ export default function FlightsComponent() {
     onNextPage,
   ]);
 
-  const handleMemberClick = useMemoizedCallback(() => {
+  const handleFieldClick = useMemoizedCallback((col: string) => {
     setSortDescriptor({
-      column: "memberInfo",
+      column: col,
       direction:
         sortDescriptor.direction === "ascending" ? "descending" : "ascending",
     });
@@ -707,9 +707,9 @@ export default function FlightsComponent() {
                   : "",
               ])}
             >
-              {column.uid === "memberInfo" ? (
+              {(column.uid !== "departingAirport" && column.uid !== "returningAirport" && column.uid !== "actions") ? (
                 <div
-                  {...getMemberInfoProps()}
+                  {...getSortableFieldsProps(column.uid)}
                   className="flex w-full cursor-pointer items-center justify-between"
                 >
                   {column.name}
