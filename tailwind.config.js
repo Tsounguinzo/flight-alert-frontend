@@ -21,43 +21,44 @@ module.exports = {
       themes: {
         light: {
           colors: {
-            background: "#F0EBE4", // or DEFAULT
+            background: "#edf0f6", // or DEFAULT
             foreground: "#303131", // or 50 to 900 DEFAULT
             primary: {
-              50: "#fff5db",
-              100: "#ffe3ad",
-              200: "#ffd07e",
-              300: "#febd4c",
-              400: "#fdaa1b",
-              500: "#e49002",
-              600: "#b17000",
-              700: "#7f5000",
-              800: "#4d2f00",
-              900: "#1d0f00",
+              50: "#D2DFFD",
+              100: "#A5BEFC",
+              200: "#7899F7",
+              300: "#557BF0",
+              400: "#557BF0",
+              500: "#214CE7",
+              600: "#183AC6",
+              700: "#102AA6",
+              800: "#0A1C85",
+              900: "#06136E",
               foreground: "#303131",
-              DEFAULT: "#FDA50F",
+              DEFAULT: "#214CE7",
             },
             // ... rest of the colors
           },
         },
         dark: {
           colors: {
-            background: "#F0EBE4", // or DEFAULT
+            background: "#edf0f6", // or DEFAULT
             foreground: "#303131", // or 50 to 900 DEFAULT
             primary: {
-              50: "#fff5db",
-              100: "#ffe3ad",
-              200: "#ffd07e",
-              300: "#febd4c",
-              400: "#fdaa1b",
-              500: "#e49002",
-              600: "#b17000",
-              700: "#7f5000",
-              800: "#4d2f00",
-              900: "#1d0f00",
+              50: "#D2DFFD",
+              100: "#A5BEFC",
+              200: "#7899F7",
+              300: "#557BF0",
+              400: "#557BF0",
+              500: "#214CE7",
+              600: "#183AC6",
+              700: "#102AA6",
+              800: "#0A1C85",
+              900: "#06136E",
               foreground: "#303131",
-              DEFAULT: "#FDA50F",
+              DEFAULT: "#214CE7",
             },
+            // ... rest of the colors
           },
           // ... rest of the colors
         },

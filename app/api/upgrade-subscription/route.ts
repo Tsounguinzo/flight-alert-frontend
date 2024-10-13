@@ -1,7 +1,6 @@
 import { User } from "@supabase/supabase-js";
 import { NextResponse, NextRequest } from "next/server";
 
-import { STRIPE_PRICE_IDS } from "@/utils/constants";
 import { createClient } from "@/utils/supabase/server";
 import { withAuth } from "@/utils/withAuth";
 
@@ -34,7 +33,7 @@ async function upgradeSubscription(request: NextRequest & { user: User }) {
       },
       body: JSON.stringify({
         subscriptionId,
-        annualPriceId: STRIPE_PRICE_IDS.ANNUAL,
+        annualPriceId: "",
       }),
     });
 
