@@ -8,16 +8,16 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-  Button,
   Link,
-  Input,
 } from "@nextui-org/react";
 import NextLink from "next/link";
 
 import { siteConfig } from "@/utils/constants";
-import { HeaderLogo, SearchIcon } from "./icons";
+import { HeaderLogo } from "../icons";
+import AuthButton from "@/components/nav/authbutton";
 
-export const Navbar = () => {
+export const Navbar = ({user}) => {
+
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -27,33 +27,31 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit items-center">
           <HeaderLogo />
-          <NextLink className="flex justify-start items-center gap-1" href="/">
+          <NextLink className="flex justify-start items-center gap-1" href="/public">
             <p className="font-extrabold text-2xl">FlyFast</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
-      <div className="flex-1"></div>
+      <NavbarContent
+          as="div"
+          className="hidden sm:flex sm:basis-full items-center justify-end"
+      >
+        <ul className="hidden lg:flex gap-12 w-full">
+          {siteConfig.navItems.map((item) => (
+              <NavbarItem key={`${item.href}-${item.label}`}>
+                <Link href={item.href} className="text-white underline p-3 hover:bg-foreground/50 rounded-3xl">
+                    {item.label}
+                </Link>
+              </NavbarItem>
+          ))}
+        </ul>
+      </NavbarContent>
       <NavbarContent
         as="div"
         className="hidden sm:flex basis-1/5 sm:basis-full items-center justify-end"
       >
         <ul className="hidden lg:flex gap-4 justify-end ml-2 w-full">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={`${item.href}-${item.label}`}>
-              <Link href={item.href}>
-                <Button
-                  radius="full"
-                  type="button"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    color: "#fff",
-                  }}
-                >
-                  {item.label}
-                </Button>
-              </Link>
-            </NavbarItem>
-          ))}
+          <AuthButton user={user} />
         </ul>
       </NavbarContent>
 

@@ -9,38 +9,30 @@ export const siteConfig = {
   description: "Get notified when the price of your flight drops.",
   navItems: [
     {
-      label: "Slap Me",
-      href: "/",
-    },
-    {
-      label: "Motivation",
-      href: "/",
-    },
-    {
-      label: "Review",
-      href: "/",
-    },
-  ],
-  navMenuItems: [
-    {
       label: "Home",
-      href: "/",
+      href: "/home",
     },
     {
       label: "Flights",
       href: "/flights",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Pricing",
+      href: "/pricing",
+    },
+  ],
+  navMenuItems: [
+    {
+      label: "Home",
+      href: "/home",
+    },
+    {
+      label: "Flights",
+      href: "/flights",
     },
     {
       label: "Pricing",
       href: "/pricing",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
     },
   ],
   links: {
