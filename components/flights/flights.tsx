@@ -1,17 +1,17 @@
 "use client";
 
 import React from "react";
-import {AgGridReact, CustomCellRendererProps} from "ag-grid-react";
+import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
 
 import { convertFlightsToTableData } from "./data";
 import { Flight, FlightData } from "./data";
 
 import sampleFlights from "@/data/sample-flights.json";
-import Link from "next/link";
 
 const sampleFlightsParsed: Flight[] = convertFlightsToTableData(
   sampleFlights as FlightData,
@@ -29,11 +29,11 @@ export default function FlightsComponent() {
     }).format(new Date(params.value));
   };
 
-  const priceFormatter = (params: { value: any }) => {
+  const priceFormatter = (params: { value: string | number | Date }) => {
     return `${Number(params.value).toFixed(2)} $US`;
   };
 
-  const stayFormatter = (params: { value: any }) => {
+  const stayFormatter = (params: { value: string | number | Date }) => {
     return `${params.value} days`;
   };
 
@@ -100,6 +100,7 @@ export default function FlightsComponent() {
     },
   ];
 
+  // @ts-ignore
   return (
     <div className="w-full">
       <div className="ag-theme-alpine" style={{ height: 500, width: "100%" }}>

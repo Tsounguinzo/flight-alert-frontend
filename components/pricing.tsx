@@ -13,8 +13,8 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { User } from "@supabase/supabase-js";
-import { usePathname } from "next/navigation";
-import { router } from "next/client";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { Tables } from "@/types_db";
 import { checkoutWithStripe } from "@/utils/stripe/server";
@@ -40,19 +40,8 @@ interface Props {
   subscription: SubscriptionWithProduct | null;
 }
 
-type BillingInterval = "lifetime" | "year" | "month";
-
 export default function Pricing({ user, products, subscription }: Props) {
-  console.log("Pricing", { user, products, subscription });
-  const intervals = Array.from(
-    new Set(
-      products.flatMap((product) =>
-        product?.prices?.map((price) => price?.interval),
-      ),
-    ),
-  );
-  const [billingInterval, setBillingInterval] =
-    useState<BillingInterval>("month");
+  const router = useRouter();
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
   const currentPath = usePathname();
 
@@ -62,7 +51,10 @@ export default function Pricing({ user, products, subscription }: Props) {
     if (!user) {
       setPriceIdLoading(undefined);
 
-      return router.push("/signup");
+      toast.error("Please log in to subscribe to this plan.");
+      router.push("/signin");
+
+      return;
     }
 
     const { errorRedirect, sessionId } = await checkoutWithStripe(
