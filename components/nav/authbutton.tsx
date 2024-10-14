@@ -9,11 +9,11 @@ import {
 import Link from "next/link";
 import { TbSquareArrowRight } from "react-icons/tb";
 import { FiLogOut } from "react-icons/fi";
+import { User } from "@supabase/supabase-js";
 
 import { handleSignOut } from "./authActions";
-import {User} from "@supabase/supabase-js";
 
-export default function AuthButton({ user }: {user:  User | null}) {
+export default function AuthButton({ user }: { user: User | null }) {
   return (
     <div className="flex items-center space-x-4">
       {!user ? (

@@ -43,6 +43,7 @@ interface Props {
 type BillingInterval = "lifetime" | "year" | "month";
 
 export default function Pricing({ user, products, subscription }: Props) {
+  console.log("Pricing", { user, products, subscription });
   const intervals = Array.from(
     new Set(
       products.flatMap((product) =>
@@ -138,7 +139,7 @@ export default function Pricing({ user, products, subscription }: Props) {
           </h2>
         </div>
         <Spacer y={8} />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {products.map((product) => {
             const price = product?.prices[0];
 
@@ -186,7 +187,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                       {priceString}
                     </span>
                     <span className="text-small font-medium text-default-400">
-                      /{billingInterval}
+                      /{product?.prices[0].interval}
                     </span>
                   </p>
                   {/*<ul className="flex flex-col gap-2">

@@ -32,9 +32,9 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
 
   return (
     <Autocomplete
+      aria-label="origin"
       inputValue={origin || list.filterText}
       isLoading={list.isLoading}
-      aria-label="origin"
       items={list.items}
       placeholder="Where from?"
       startContent={<FaPlaneDeparture style={{ marginRight: 4 }} />}
@@ -45,8 +45,9 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
       onSelectionChange={(key: any) => {
         // Find the selected item and update input value
         const selectedItem = list.items.find(
-          (item) => `${item.city_name} (${item.airport_code})` === key
+          (item) => `${item.city_name} (${item.airport_code})` === key,
         );
+
         if (selectedItem) {
           setOrigin(`${selectedItem.city_name} (${selectedItem.airport_code})`);
         }
@@ -72,10 +73,10 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
             </div>
             <div style={{ alignSelf: "flex-start" }}>
               <span
+                className="text-white text-xs px-2 py-1 rounded-full"
                 style={{
                   backgroundColor: "#214CE7",
                 }}
-                className="text-white text-xs px-2 py-1 rounded-full"
               >
                 {item.airport_code}
               </span>

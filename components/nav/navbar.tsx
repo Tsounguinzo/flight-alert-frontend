@@ -11,14 +11,14 @@ import {
   Link,
 } from "@nextui-org/react";
 import NextLink from "next/link";
+import { User } from "@supabase/supabase-js";
 
 import { HeaderLogo } from "../icons";
 
 import { siteConfig } from "@/utils/constants";
 import AuthButton from "@/components/nav/authbutton";
-import {User} from "@supabase/supabase-js";
 
-export const Navbar = ({ user }: {user:  User | null}) => {
+export const Navbar = ({ user }: { user: User | null }) => {
   return (
     <NextUINavbar
       maxWidth="xl"

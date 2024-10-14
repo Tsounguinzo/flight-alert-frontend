@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import airportsData from "@/data/airports.json";
-import { count } from "console";
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const filteredAirports = airportsData.filter(
       (airport) =>
         airport.city_name.toLowerCase().includes(query) ||
-        airport.airport_code.toLowerCase().includes(query)
+        airport.airport_code.toLowerCase().includes(query),
     );
 
     // Return the filtered and formatted results as a JSON response
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -25,6 +25,10 @@ export default async function Pricing() {
   ]);
 
   return (
-    <PricingPage products={products ?? []} subscription={subscription} user={user} />
+    <PricingPage
+      products={products ?? []}
+      subscription={subscription}
+      user={user}
+    />
   );
 }

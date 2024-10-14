@@ -25,6 +25,7 @@ function LiveSearchForm() {
   const handleSwap = () => {
     const x = origin;
     const y = destination;
+
     setOrigin(y);
     setDestination(x);
   };

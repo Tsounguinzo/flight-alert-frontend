@@ -1,5 +1,3 @@
-import sampleFlights from "@/data/sample-flights.json";
-
 type Offer = {
   tripLength?: number; // For global offers
   startDate: string;
@@ -45,42 +43,6 @@ export type ColumnsKey =
   | "price"
   | "actions";
 
-export const INITIAL_VISIBLE_COLUMNS: ColumnsKey[] = [
-  "startDate",
-  "returnDate",
-  "departingAirport",
-  "returningAirport",
-  "price",
-  "stay",
-  "actions",
-];
-
-export const columns = [
-  { name: "Departure Date", uid: "startDate" },
-  {
-    name: "Return Date",
-    uid: "returnDate",
-    info: "Day of the flight from departure airport",
-  },
-  {
-    name: "Stay",
-    uid: "stay",
-    info: "Number of days",
-  },
-  {
-    name: "Departing Airport",
-    uid: "departingAirport",
-    sortDirection: "ascending",
-  },
-  {
-    name: "Returning Airport",
-    uid: "returningAirport",
-    sortDirection: "ascending",
-  },
-  { name: "Price", uid: "price", sortDirection: "ascending" },
-  { name: "Actions", uid: "actions" },
-];
-
 export function convertFlightsToTableData(
   flightData: FlightData,
   departingAirport: string,
@@ -115,11 +77,3 @@ export function convertFlightsToTableData(
 
   return flights;
 }
-
-const generateMockFlightData = (flightData: FlightData) => {
-  return convertFlightsToTableData(flightData, "JFK", "LAX");
-};
-
-export const flights: Flight[] = generateMockFlightData(
-  sampleFlights as FlightData,
-);
