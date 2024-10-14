@@ -1,13 +1,15 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Toaster } from "sonner";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { Toaster } from "sonner";
 
 import { Providers } from "./providers";
 
 import { Header } from "@/components/nav/header";
 import Footer from "@/components/footer";
 import { siteConfig } from "@/utils/constants";
+import { Toaster as CustomToaster } from "@/components/Toasts/toaster";
 
 export const metadata: Metadata = {
   title: {
@@ -60,6 +62,9 @@ export default function RootLayout({
             <main className="w-full py-20 px-6 flex-grow">{children}</main>
             <Footer />
             <Toaster richColors position="bottom-right" />
+            <Suspense>
+              <CustomToaster />
+            </Suspense>
           </div>
         </Providers>
       </body>
