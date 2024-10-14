@@ -118,7 +118,3 @@ export function capitalizeInital(input: unknown): string | undefined {
 
   return input.charAt(0).toUpperCase() + input.slice(1);
 }
-
-export function convertToSubcurrency(amount: number, factor = 100) {
-  return Math.round(amount * factor);
-}

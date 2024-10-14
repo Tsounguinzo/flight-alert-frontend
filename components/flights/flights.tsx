@@ -7,6 +7,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
+import { ColDef } from "ag-grid-community";
 
 import { convertFlightsToTableData } from "./data";
 import { Flight, FlightData } from "./data";
@@ -38,7 +39,7 @@ export default function FlightsComponent() {
   };
 
   // Define ag-Grid columns
-  const columnDefs = [
+  const columnDefs: ColDef<Flight>[] = [
     {
       field: "startDate",
       headerName: "Departure Date",
@@ -81,7 +82,6 @@ export default function FlightsComponent() {
     },
     {
       headerName: "Actions",
-      field: "actions",
       sortable: false,
       cellRenderer: (params: CustomCellRendererProps) => {
         return (
@@ -100,7 +100,6 @@ export default function FlightsComponent() {
     },
   ];
 
-  // @ts-ignore
   return (
     <div className="w-full">
       <div className="ag-theme-alpine" style={{ height: 500, width: "100%" }}>
