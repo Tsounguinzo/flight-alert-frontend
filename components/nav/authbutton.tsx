@@ -11,8 +11,9 @@ import { TbSquareArrowRight } from "react-icons/tb";
 import { FiLogOut } from "react-icons/fi";
 
 import { handleSignOut } from "./authActions";
+import {User} from "@supabase/supabase-js";
 
-export default function AuthButton({ user }) {
+export default function AuthButton({ user }: {user:  User | null}) {
   return (
     <div className="flex items-center space-x-4">
       {!user ? (

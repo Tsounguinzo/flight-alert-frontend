@@ -2,8 +2,9 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next/types";
 
 import DashboardPage from "@/components/dashboard";
-import { getUserAndSubscription } from "@/lib/data-fetching";
 import { constructMetadata } from "@/lib/utils";
+import {getSubscription, getUser} from "@/utils/supabase/queries";
+import {createClient} from "@/utils/supabase/server";
 
 export const metadata: Metadata = constructMetadata({
   title: "Dashboard",
@@ -12,14 +13,14 @@ export const metadata: Metadata = constructMetadata({
 });
 
 export default async function Dashboard() {
-  const {
-    user,
-    subscription,
-    redirect: redirectTo,
-  } = await getUserAndSubscription();
+  const supabase = createClient();
+  const [user, subscription] = await Promise.all([
+    getUser(supabase),
+    getSubscription(supabase)
+  ]);
 
-  if (redirectTo || !user) {
-    return redirect(redirectTo ?? "/signin");
+  if (!user) {
+    return redirect('/signin');
   }
 
   return <DashboardPage subscription={subscription} user={user} />;

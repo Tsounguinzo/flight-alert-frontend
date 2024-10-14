@@ -24,8 +24,7 @@ export default async function Pricing() {
     getSubscription(supabase),
   ]);
 
-  // @ts-ignore
   return (
-    <PricingPage products={products} subscription={subscription} user={user} />
+    <PricingPage products={products ?? []} subscription={subscription} user={user} />
   );
 }

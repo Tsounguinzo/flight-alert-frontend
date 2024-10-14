@@ -16,8 +16,9 @@ import { HeaderLogo } from "../icons";
 
 import { siteConfig } from "@/utils/constants";
 import AuthButton from "@/components/nav/authbutton";
+import {User} from "@supabase/supabase-js";
 
-export const Navbar = ({ user }) => {
+export const Navbar = ({ user }: {user:  User | null}) => {
   return (
     <NextUINavbar
       maxWidth="xl"
