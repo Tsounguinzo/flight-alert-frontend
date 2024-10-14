@@ -1,14 +1,14 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
-
-import PassengerSelector from "./PassengerSelector";
+import { AiOutlineSwap } from "react-icons/ai";
 import Origin from "./Origin";
 import Destination from "./Destination";
-import { AiOutlineSwap } from "react-icons/ai";
+import PassengerSelector from "./PassengerSelector";
 
 function LiveSearchForm() {
-  const [origin, setOrigin] = useState(""); // State for origin
-  const [destination, setDestination] = useState(""); // State for destination
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+
   const flightTypes = [
     { label: "Round Trip", key: "Round Trip" },
     { label: "One Way", key: "One Way" },
@@ -20,18 +20,14 @@ function LiveSearchForm() {
     { label: "Business", key: "Business" },
     { label: "First", key: "First" },
   ];
-  const handleOriginChange = (selected: string) => {
-    setOrigin(selected);
-  };
-
-  const handleDestinationChange = (selected: string) => {
-    setDestination(selected);
-  };
 
   const handleSwap = () => {
-    console.log(destination);
-    console.log(origin);
+    const x = origin;
+    const y = destination;
+    setOrigin(y);
+    setDestination(x);
   };
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="flex items-center gap-3 w-full">
@@ -52,24 +48,28 @@ function LiveSearchForm() {
           defaultSelectedKeys={["Economy"]}
           className="max-w-[33%]"
         >
-          {flightClass.map((fCalss) => (
-            <SelectItem key={fCalss.key}>{fCalss.label}</SelectItem>
+          {flightClass.map((fClass) => (
+            <SelectItem key={fClass.key}>{fClass.label}</SelectItem>
           ))}
         </Select>
       </div>
+
       <div className="flex items-center gap-3 w-full">
-        <div>
-          <Origin onChange={handleOriginChange} origin={origin} />
-        </div>
-        <Button isIconOnly onClick={handleSwap}>
+        {/* Origin Autocomplete */}
+        <Origin origin={origin} setOrigin={setOrigin} />
+        {/* Swap Button */}
+        <Button
+          isIconOnly
+          style={{ backgroundColor: "#F4F4F5" }}
+          onClick={handleSwap}
+        >
           <AiOutlineSwap />
         </Button>
-        <div>
-          <Destination
-            onChange={handleDestinationChange}
-            destination={destination}
-          />
-        </div>
+        {/* Destination Autocomplete */}
+        <Destination
+          destination={destination}
+          setDestination={setDestination}
+        />
       </div>
     </div>
   );
