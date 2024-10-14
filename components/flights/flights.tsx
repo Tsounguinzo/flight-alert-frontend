@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AgGridReact } from "ag-grid-react";
+import {AgGridReact, CustomCellRendererProps} from "ag-grid-react";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -83,7 +83,7 @@ export default function FlightsComponent() {
       headerName: "Actions",
       field: "actions",
       sortable: false,
-      cellRenderer: (params) => {
+      cellRenderer: (params: CustomCellRendererProps) => {
         return (
           <Button
             as={Link}
