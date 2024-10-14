@@ -39,18 +39,18 @@ const FlightsComponent = () => {
   const [error, setError] = useState("");
   const [noFlightsMessage, setNoFlightsMessage] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name: string) => (e) => {
+  const handleSelectChange = (name: string) => (e: { target: { value: any; }; }) => {
     setFormData((prev) => ({ ...prev, [name]: e.target.value }));
   };
 
   const dateFormatter = (params: { value: string | number | Date }) => {
     return new Intl.DateTimeFormat("en-US", {
-      month: "long",
+      month: "short",
       day: "numeric",
       year: "numeric",
     }).format(new Date(params.value));
@@ -113,7 +113,6 @@ const FlightsComponent = () => {
               as={Link}
               href={params.data.link || "#"}
               target="_blank"
-              color="primary"
               size="sm"
           >
             Book Now
@@ -122,7 +121,7 @@ const FlightsComponent = () => {
     },
   ];
 
-  const handleSearch = async (e) => {
+  const handleSearch = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setError("");
     setNoFlightsMessage("");
@@ -320,23 +319,16 @@ const FlightsComponent = () => {
         )}
 
         {flights.length > 0 && (
-            <Card>
-              <CardHeader>
-                <h3 className="text-lg font-semibold">Available Flights</h3>
-              </CardHeader>
-              <CardBody>
-                <div className="ag-theme-alpine" style={{ height: 500, width: "100%" }}>
+                <div className="ag-theme-alpine" style={{ height: 800, width: "100%" }}>
                   <AgGridReact
                       columnDefs={columnDefs}
                       rowData={flights}
                       pagination={true}
-                      paginationPageSize={10}
+                      paginationPageSize={20}
                       rowSelection="multiple"
                       animateRows={true}
                   />
                 </div>
-              </CardBody>
-            </Card>
         )}
       </div>
   );
