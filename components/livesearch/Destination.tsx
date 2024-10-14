@@ -1,9 +1,19 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { FaPlaneDeparture } from "react-icons/fa";
+import { FaPlaneArrival } from "react-icons/fa";
+import { AirportItem } from "./Origin";
 
-export default function Origin({ origin, setOrigin }) {
-  let list = useAsyncList({
+// Define the props type for the component
+interface DestinationProps {
+  destination: string;
+  setDestination: (value: string) => void;
+}
+
+export default function Destination({
+  destination,
+  setDestination,
+}: DestinationProps) {
+  let list = useAsyncList<AirportItem>({
     async load({ signal, filterText }) {
       let res = await fetch(`/api/autocomplete-airport/?q=${filterText}`, {
         signal,
@@ -11,30 +21,32 @@ export default function Origin({ origin, setOrigin }) {
       let json = await res.json();
 
       return {
-        items: json.results,
+        items: json.results as AirportItem[], // Type-cast to the AirportItem type
       };
     },
   });
 
   return (
     <Autocomplete
-      inputValue={origin || list.filterText}
+      inputValue={destination || list.filterText}
       isLoading={list.isLoading}
-      aria-label="origin"
+      aria-label="destination"
       items={list.items}
-      placeholder="Where from?"
-      startContent={<FaPlaneDeparture style={{ marginRight: 4 }} />}
+      placeholder="Where to?"
+      startContent={<FaPlaneArrival style={{ marginRight: 4 }} />}
       onInputChange={(text) => {
         list.setFilterText(text);
-        setOrigin(""); // clear the selected value when typing
+        setDestination(""); // Clear the selected value when typing
       }}
-      onSelectionChange={(key) => {
+      onSelectionChange={(key: any) => {
         // Find the selected item and update input value
         const selectedItem = list.items.find(
           (item) => `${item.city_name} (${item.airport_code})` === key
         );
         if (selectedItem) {
-          setOrigin(`${selectedItem.city_name} (${selectedItem.airport_code})`);
+          setDestination(
+            `${selectedItem.city_name} (${selectedItem.airport_code})`
+          );
         }
       }}
     >

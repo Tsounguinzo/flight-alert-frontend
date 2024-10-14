@@ -1,5 +1,5 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineSwap } from "react-icons/ai";
 
 import PassengerSelector from "./PassengerSelector";

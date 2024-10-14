@@ -1,9 +1,23 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { FaPlaneArrival } from "react-icons/fa";
+import { FaPlaneDeparture } from "react-icons/fa";
 
-export default function Destination({ destination, setDestination }) {
-  let list = useAsyncList({
+// Define the type for the airport item
+export interface AirportItem {
+  airport_name: string;
+  city_name: string;
+  country_name: string;
+  airport_code: string;
+}
+
+// Define the props type for the component
+interface OriginProps {
+  origin: string;
+  setOrigin: (value: string) => void;
+}
+
+export default function Origin({ origin, setOrigin }: OriginProps) {
+  let list = useAsyncList<AirportItem>({
     async load({ signal, filterText }) {
       let res = await fetch(`/api/autocomplete-airport/?q=${filterText}`, {
         signal,
@@ -11,32 +25,30 @@ export default function Destination({ destination, setDestination }) {
       let json = await res.json();
 
       return {
-        items: json.results,
+        items: json.results as AirportItem[], // Type-cast to the AirportItem type
       };
     },
   });
 
   return (
     <Autocomplete
-      inputValue={destination || list.filterText}
+      inputValue={origin || list.filterText}
       isLoading={list.isLoading}
-      aria-label="destination"
+      aria-label="origin"
       items={list.items}
-      placeholder="Where to?"
-      startContent={<FaPlaneArrival style={{ marginRight: 4 }} />}
+      placeholder="Where from?"
+      startContent={<FaPlaneDeparture style={{ marginRight: 4 }} />}
       onInputChange={(text) => {
         list.setFilterText(text);
-        setDestination(""); // clear the selected value when typing
+        setOrigin(""); // Clear the selected value when typing
       }}
-      onSelectionChange={(key) => {
+      onSelectionChange={(key: any) => {
         // Find the selected item and update input value
         const selectedItem = list.items.find(
           (item) => `${item.city_name} (${item.airport_code})` === key
         );
         if (selectedItem) {
-          setDestination(
-            `${selectedItem.city_name} (${selectedItem.airport_code})`
-          );
+          setOrigin(`${selectedItem.city_name} (${selectedItem.airport_code})`);
         }
       }}
     >

@@ -28,8 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/livesearch/Origin.jsx",
-    "components/livesearch/Destination.jsx"
+    "components/livesearch/Origin.tsx",
+    "components/livesearch/Destination.tsx"
   ],
   "exclude": ["node_modules"]
 }
