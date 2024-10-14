@@ -1,16 +1,10 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
 import { AiOutlineSwap } from "react-icons/ai";
-<<<<<<< HEAD
-import Origin from "./Origin";
-import Destination from "./Destination";
-import PassengerSelector from "./PassengerSelector";
-=======
 
 import PassengerSelector from "./PassengerSelector";
 import Origin from "./Origin";
 import Destination from "./Destination";
->>>>>>> 7adef1e9d4af94fe04217d5b50fae4fde226414e
 
 function LiveSearchForm() {
   const [origin, setOrigin] = useState("");
@@ -62,7 +56,6 @@ function LiveSearchForm() {
       </div>
 
       <div className="flex items-center gap-3 w-full">
-<<<<<<< HEAD
         {/* Origin Autocomplete */}
         <Origin origin={origin} setOrigin={setOrigin} />
         {/* Swap Button */}
@@ -78,20 +71,6 @@ function LiveSearchForm() {
           destination={destination}
           setDestination={setDestination}
         />
-=======
-        <div>
-          <Origin origin={origin} onChange={handleOriginChange} />
-        </div>
-        <Button isIconOnly onClick={handleSwap}>
-          <AiOutlineSwap />
-        </Button>
-        <div>
-          <Destination
-            destination={destination}
-            onChange={handleDestinationChange}
-          />
-        </div>
->>>>>>> 7adef1e9d4af94fe04217d5b50fae4fde226414e
       </div>
     </div>
   );

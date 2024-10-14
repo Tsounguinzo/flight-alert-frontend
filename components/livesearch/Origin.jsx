@@ -1,6 +1,5 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { useState } from "react";
 import { FaPlaneDeparture } from "react-icons/fa";
 
 export default function Origin({ origin, setOrigin }) {
