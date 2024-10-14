@@ -8,7 +8,8 @@ import {
 } from "@nextui-org/react";
 
 import { UsageType } from "../dashboard";
-import {Badge} from "@/components/badge";
+
+import { Badge } from "@/components/badge";
 
 type FreeTrialCardProps = {
   usage: UsageType;

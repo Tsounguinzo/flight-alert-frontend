@@ -36,7 +36,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
       </CardBody>
       <CardFooter className="mt-auto pt-4">
         {user?.app_metadata.provider === "email" && (
-          <Button as={Link} href={"/update-password"} className="ml-auto p-2">
+          <Button as={Link} className="ml-auto p-2" href={"/update-password"}>
             Update Password
           </Button>
         )}

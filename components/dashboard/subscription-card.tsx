@@ -24,7 +24,7 @@ import { Subscription } from "@/types/subscription";
 import { capitalizeInital } from "@/lib/utils";
 import { useCancelSubscription } from "@/hooks/useCancelSubscription";
 import { useUpgradeSubscription } from "@/hooks/useUpgradeSubscription";
-import {Badge} from "@/components/badge";
+import { Badge } from "@/components/badge";
 
 type SubscriptionCardProps = {
   subscription: Subscription | null;
@@ -93,7 +93,12 @@ export default function SubscriptionCard({
             </div>
           </CardBody>
           <CardFooter className="mt-8 pt-6">
-            <Button as={Link} href={"/pricing"} className="ml-auto text-primary-800" variant="bordered">
+            <Button
+              as={Link}
+              className="ml-auto text-primary-800"
+              href={"/pricing"}
+              variant="bordered"
+            >
               Subscribe Now
             </Button>
           </CardFooter>

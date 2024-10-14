@@ -78,27 +78,27 @@ export default function DashboardPage({
   }, [router, searchParams]);
 
   return (
-        <div className="p-4 text-foreground sm:p-6">
-          <div className="mb-6">
-            <h1 className="text-4xl font-bold">Dashboard</h1>
-            <p className="text-muted-foreground">
-              Manage your account, billing, and preferences.
-            </p>
-          </div>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <ProfileCard user={user} />
-            {/* Below commented out until we implement Free Trial */}
-            {subscription ? (
-              <SubscriptionCard
-                loading={loading}
-                subscription={subscription}
-                usage={usage}
-                user={user}
-              />
-            ) : (
-              <FreeTrialCard loading={loading} usage={usage} />
-            )}
-          </div>
-        </div>
+    <div className="p-4 text-foreground sm:p-6">
+      <div className="mb-6">
+        <h1 className="text-4xl font-bold">Dashboard</h1>
+        <p className="text-muted-foreground">
+          Manage your account, billing, and preferences.
+        </p>
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <ProfileCard user={user} />
+        {/* Below commented out until we implement Free Trial */}
+        {subscription ? (
+          <SubscriptionCard
+            loading={loading}
+            subscription={subscription}
+            usage={usage}
+            user={user}
+          />
+        ) : (
+          <FreeTrialCard loading={loading} usage={usage} />
+        )}
+      </div>
+    </div>
   );
 }

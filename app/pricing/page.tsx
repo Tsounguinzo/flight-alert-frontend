@@ -1,8 +1,14 @@
 import { Metadata } from "next/types";
+import React from "react";
 
 import PricingPage from "@/components/pricing";
 import { constructMetadata } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
+import {
+  getProducts,
+  getSubscription,
+  getUser,
+} from "@/utils/supabase/queries";
 
 export const metadata: Metadata = constructMetadata({
   title: "Pricing",
@@ -12,9 +18,14 @@ export const metadata: Metadata = constructMetadata({
 
 export default async function Pricing() {
   const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const [user, products, subscription] = await Promise.all([
+    getUser(supabase),
+    getProducts(supabase),
+    getSubscription(supabase),
+  ]);
 
-  return <PricingPage user={user} />;
+  // @ts-ignore
+  return (
+    <PricingPage products={products} subscription={subscription} user={user} />
+  );
 }

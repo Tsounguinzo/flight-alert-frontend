@@ -6,10 +6,9 @@ import {
   PopoverContent,
 } from "@nextui-org/react";
 import { MdPerson } from "react-icons/md";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
 import { HiOutlineMinusSmall } from "react-icons/hi2";
-import { ArrowUpIcon } from "../flights/arrow-up";
+
 import { ArrowDown, ArrowUp } from "../icons";
 
 const PassengerSelector = () => {
@@ -38,8 +37,8 @@ const PassengerSelector = () => {
   return (
     <Popover
       isOpen={isPopoverOpen}
-      onOpenChange={setIsPopoverOpen}
       placement="bottom"
+      onOpenChange={setIsPopoverOpen}
     >
       <PopoverTrigger>
         <Button radius="sm" style={{ backgroundColor: "#F4F4F5" }}>
@@ -59,12 +58,12 @@ const PassengerSelector = () => {
             </div>
             <div className="flex items-center">
               <Button
-                onClick={decrementAdults}
                 isIconOnly
                 color="danger"
+                isDisabled={adults <= 1}
                 size="sm"
                 variant="bordered"
-                isDisabled={adults <= 1}
+                onClick={decrementAdults}
               >
                 <HiOutlineMinusSmall />
               </Button>
@@ -75,12 +74,12 @@ const PassengerSelector = () => {
                 {adults}
               </p>{" "}
               <Button
-                onClick={incrementAdults}
                 isIconOnly
-                size="sm"
                 color="primary"
-                variant="bordered"
                 isDisabled={adults >= 9}
+                size="sm"
+                variant="bordered"
+                onClick={incrementAdults}
               >
                 <IoIosAdd />
               </Button>
@@ -93,12 +92,12 @@ const PassengerSelector = () => {
             </div>
             <div className="flex items-center">
               <Button
-                onClick={decrementChildren}
-                size="sm"
                 isIconOnly
                 color="danger"
-                variant="bordered"
                 isDisabled={children <= 0}
+                size="sm"
+                variant="bordered"
+                onClick={decrementChildren}
               >
                 <HiOutlineMinusSmall />
               </Button>
@@ -109,12 +108,12 @@ const PassengerSelector = () => {
                 {children}
               </p>
               <Button
-                onClick={incrementChildren}
+                isIconOnly
+                color="primary"
+                isDisabled={children >= 9}
                 size="sm"
                 variant="bordered"
-                color="primary"
-                isIconOnly
-                isDisabled={children >= 9}
+                onClick={incrementChildren}
               >
                 <IoIosAdd />
               </Button>
@@ -122,11 +121,11 @@ const PassengerSelector = () => {
           </div>
           {/* Done Button */}
           <Button
+            fullWidth
+            variant="flat"
             onClick={() => {
               setIsPopoverOpen(false);
             }}
-            variant="flat"
-            fullWidth
           >
             Done
           </Button>

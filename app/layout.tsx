@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { Providers } from "./providers";
 
-import { Navbar } from "@/components/navbar";
+import { Header } from "@/components/nav/header";
 import Footer from "@/components/footer";
 import { siteConfig } from "@/utils/constants";
 
@@ -56,7 +56,7 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", forcedTheme: "white" }}>
           <PostHogPageView />
           <div className="relative flex flex-col h-screen bg-white">
-            <Navbar />
+            <Header />
             <main className="w-full py-20 px-6 flex-grow">{children}</main>
             <Footer />
             <Toaster richColors position="bottom-right" />

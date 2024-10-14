@@ -353,6 +353,7 @@ export const ArrowUp = ({
   <svg
     {...props}
     aria-hidden="true"
+    data-slot="selectorIcon"
     fill="none"
     focusable="false"
     height="1em"
@@ -363,9 +364,8 @@ export const ArrowUp = ({
     strokeWidth="1.5"
     viewBox="0 0 24 24"
     width="1em"
-    data-slot="selectorIcon"
   >
-    <path d="m6 15 6-6 6 6"></path>
+    <path d="m6 15 6-6 6 6" />
   </svg>
 );
 
@@ -378,6 +378,8 @@ export const ArrowDown = ({
 }) => (
   <svg
     aria-hidden="true"
+    data-open="true"
+    data-slot="selectorIcon"
     fill="none"
     focusable="false"
     height="1em"
@@ -388,9 +390,7 @@ export const ArrowDown = ({
     strokeWidth="1.5"
     viewBox="0 0 24 24"
     width="1em"
-    data-slot="selectorIcon"
-    data-open="true"
   >
-    <path d="m6 9 6 6 6-6"></path>
+    <path d="m6 9 6 6 6-6" />
   </svg>
 );

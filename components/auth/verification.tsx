@@ -32,44 +32,56 @@ export default function Verification() {
   };
 
   return (
-    <div className="flex h-full w-full justify-center mb-20">
-      <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
-        <div className="flex flex-col items-center pb-6">
-          <p className="text-4xl font-medium">
-            {" "}
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="pb-12">
+        {/* Page header */}
+        <div className="md:pb-15 mx-auto max-w-3xl pb-10 text-center text-2xl md:text-3xl lg:text-4xl">
+          <h1 className="h1 leading-tight">
             We&apos;ve sent you an email for Confirmation
-          </p>
-          <p className="text-small text-default-500">
-            If you&apos;ve already confirmed your email, please sign in below
-          </p>
+          </h1>
         </div>
-        <div className="-mx-3 flex flex-wrap">
-          <div className="w-full px-3 text-center">
-            <Button
-              className="w-full"
-              color="primary"
-              size={"lg"}
-              onClick={handleClick}
-            >
-              Sign in
-            </Button>
-            <div className="mt-4">
-              Make sure to check your spam folder if you don&apos;t see it!
+        <div className="mx-auto max-w-xl">
+          <div className="flex items-center">
+            <div
+              aria-hidden="true"
+              className="mr-3 grow border-t border-dotted border-gray-700"
+            />
+            <div className="text-gray-700">
+              If you&apos;ve already confirmed your email, please sign in below
             </div>
-            {email && (
-              <div className="mt-4">
-                Didn&apos;t receive an email?{" "}
-                <Button
-                  as={Link}
-                  className="p-3 text-gray-700"
-                  disabled={isSubmitting}
-                  isLoading={isSubmitting}
-                  onClick={() => handleResendEmail()}
-                >
-                  {isSubmitting ? "Resending..." : "Resend email"}
-                </Button>
+            <div
+              aria-hidden="true"
+              className="ml-3 grow border-t border-dotted border-gray-700"
+            />
+          </div>
+          <div className="-mx-3 mt-11 flex flex-wrap">
+            <div className="w-full px-3 text-center">
+              <Button
+                className="w-full"
+                color="primary"
+                size={"lg"}
+                onClick={handleClick}
+              >
+                Sign in
+              </Button>
+              <div className="mt-4 text-gray-400">
+                Make sure to check your spam folder if you don&apos;t see it!
               </div>
-            )}
+              {email && (
+                <div className="mt-2 text-gray-400">
+                  Didn&apos;t receive an email?{" "}
+                  <Button
+                    as={Link}
+                    className="p-0 text-gray-700 hover:text-primary-800 bg-transparent underline"
+                    disabled={isSubmitting}
+                    isLoading={isSubmitting}
+                    onClick={() => handleResendEmail()}
+                  >
+                    {isSubmitting ? "Resending..." : "Resend email"}
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
