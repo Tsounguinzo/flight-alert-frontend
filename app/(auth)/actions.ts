@@ -12,7 +12,7 @@ import {
 
 import { createClient } from "@/utils/supabase/server";
 import { UpdatePasswordFormData } from "@/utils/form-schema";
-import { getURL } from "@/lib/utils";
+import { getURL } from "@/utils/helpers";
 
 export async function signin(formData: FormData) {
   const supabase = createClient();
@@ -84,7 +84,7 @@ export async function signup(formData: FormData) {
 export async function signinWithOAuth(provider: Provider) {
   const supabase = createClient();
 
-  const redirectToUrl = `${getURL()}/auth/callback`;
+  const redirectToUrl = getURL("/auth/callback");
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
@@ -111,7 +111,7 @@ export async function resetPassword(formData: FormData) {
   const email = formData.get("email") as string;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${getURL()}/update-password`,
+    redirectTo: getURL("/update-password"),
   });
 
   if (error) {
@@ -154,7 +154,7 @@ export async function resendConfirmationEmail(email: string) {
     type: "signup",
     email: email,
     options: {
-      emailRedirectTo: `${getURL()}/dashboard`,
+      emailRedirectTo: getURL("/dashboard"),
     },
   });
 

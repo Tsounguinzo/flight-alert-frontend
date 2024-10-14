@@ -1,46 +1,35 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { type CookieOptions, createServerClient } from "@supabase/ssr";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
-  const code = searchParams.get("code");
-  // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get("next") ?? "/dashboard";
-  let authError = "";
+import { createClient } from "@/utils/supabase/server";
+import { getErrorRedirect, getStatusRedirect } from "@/utils/helpers";
+
+export async function GET(request: NextRequest) {
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get("code");
 
   if (code) {
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
-          set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, ...options });
-          },
-          remove(name: string, options: CookieOptions) {
-            cookieStore.delete({ name, ...options });
-          },
-        },
-      },
-    );
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    const supabase = createClient();
 
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      return NextResponse.redirect(
+        getErrorRedirect(
+          `${requestUrl.origin}/signin`,
+          error.name,
+          "Sorry, we weren't able to log you in. Please try again.",
+        ),
+      );
     }
-    authError =
-      error?.message ?? "Error during code exchange for oauth session";
-  } else {
-    authError = "No auth code in params";
   }
 
-  // return the user to an error page with instructions
+  // URL to redirect to after sign in process completes
   return NextResponse.redirect(
-    `${origin}/auth/auth-code-error?error=${authError}`,
+    getStatusRedirect(
+      `${requestUrl.origin}/dashboard`,
+      "Success!",
+      "You are now signed in.",
+    ),
   );
 }
