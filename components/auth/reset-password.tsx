@@ -4,12 +4,14 @@ import { Button, Input, Link } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { resetPassword } from "@/app/(auth)/actions";
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
 } from "@/utils/form-schema";
+import { handleRequest } from "@/utils/auth-helpers/client";
+import { requestPasswordUpdate } from "@/utils/auth-helpers/server";
 
 export default function ResetPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,6 +28,7 @@ export default function ResetPassword() {
       email: "",
     },
   });
+  const router = useRouter();
   const handleResetPassword = async (data: ResetPasswordFormData) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -37,16 +40,7 @@ export default function ResetPassword() {
 
       formData.append("email", data.email);
 
-      const response = await resetPassword(formData);
-
-      if (response?.error) {
-        setErrorMessage(response.error);
-      } else {
-        setSuccessMessage(
-          "Password reset instructions have been sent to your email.",
-        );
-        reset();
-      }
+      await handleRequest(formData, requestPasswordUpdate, router);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     } finally {

@@ -2,15 +2,26 @@
 import { User } from "@supabase/supabase-js";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
-import { Subscription } from "@/types/subscription";
 import ProfileCard from "@/components/dashboard/profile-card";
 import SubscriptionCard from "@/components/dashboard/subscription-card";
 import FreeTrialCard from "@/components/dashboard/freetrial-card";
+import { Tables } from "@/types_db";
+
+type Subscription = Tables<"subscriptions">;
+type Price = Tables<"prices">;
+type Product = Tables<"products">;
+
+type SubscriptionWithPriceAndProduct = Subscription & {
+  prices:
+    | (Price & {
+        products: Product | null;
+      })
+    | null;
+};
 
 type DashboardPageProps = {
-  subscription: Subscription | null;
+  subscription: SubscriptionWithPriceAndProduct | null;
   user: User;
 };
 
@@ -30,27 +41,6 @@ export default function DashboardPage({
   });
 
   useEffect(() => {
-    const handleCallbackForApp = async () => {
-      // Handle callback
-      const callback = searchParams?.get("callback");
-
-      if (callback) {
-        const decodedCallback = decodeURIComponent(callback);
-        const callbackUrl = new URL(decodedCallback);
-        const newSearchParams = new URLSearchParams(callbackUrl.search);
-
-        callbackUrl.search = newSearchParams.toString();
-        const openAppUrl = callbackUrl.toString();
-
-        router.push(openAppUrl);
-
-        const currentUrl = new URL(window.location.href);
-
-        currentUrl.searchParams.delete("callback");
-        window.history.replaceState({}, "", currentUrl.toString());
-      }
-    };
-
     const getUserRequestsUsage = async () => {
       try {
         const response = await fetch("/api/dashboard-usage", {
@@ -59,7 +49,7 @@ export default function DashboardPage({
         });
 
         if (!response.ok) {
-          toast.error("Failed to fetch requests usage.");
+          console.error("Failed to fetch requests usage.");
 
           return;
         }
@@ -67,13 +57,12 @@ export default function DashboardPage({
 
         setUsage(usage);
       } catch (error) {
-        toast.error(`Error fetching requests usage: ${error}`);
+        console.error(`Error fetching requests usage: ${error}`);
       } finally {
         setLoading(false);
       }
     };
 
-    handleCallbackForApp();
     getUserRequestsUsage();
   }, [router, searchParams]);
 
@@ -93,7 +82,6 @@ export default function DashboardPage({
             loading={loading}
             subscription={subscription}
             usage={usage}
-            user={user}
           />
         ) : (
           <FreeTrialCard loading={loading} usage={usage} />

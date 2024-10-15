@@ -2,8 +2,15 @@
 
 import React, { useState } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { Input, Button, Select, SelectItem, Card, CardBody, CardHeader, Checkbox } from "@nextui-org/react";
-import Link from "next/link";
+import {
+  Input,
+  Button,
+  Select,
+  SelectItem,
+  Card,
+  CardBody,
+  CardHeader,
+} from "@nextui-org/react";
 import axios from "axios";
 
 import "ag-grid-community/styles/ag-grid.css";
@@ -36,17 +43,21 @@ const FlightsComponent = () => {
 
   const [flights, setFlights] = useState<Flight[]>([]);
   const [loading, setLoading] = useState(false);
+  const [urlLoading, setUrlLoading] = useState(false);
   const [error, setError] = useState("");
   const [noFlightsMessage, setNoFlightsMessage] = useState("");
+  const [loadingRowId, setLoadingRowId] = useState(null);
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name: string) => (e: { target: { value: any; }; }) => {
-    setFormData((prev) => ({ ...prev, [name]: e.target.value }));
-  };
+  const handleSelectChange =
+    (name: string) => (e: { target: { value: any } }) => {
+      setFormData((prev) => ({ ...prev, [name]: e.target.value }));
+    };
 
   const dateFormatter = (params: { value: string | number | Date }) => {
     return new Intl.DateTimeFormat("en-US", {
@@ -62,6 +73,51 @@ const FlightsComponent = () => {
 
   const stayFormatter = (params: { value: string | number | Date }) => {
     return `${params.value} days`;
+  };
+
+  function formatDateToYMD(dateString: string | number | Date) {
+    const inputDate = new Date(dateString);
+
+    const year = inputDate.getFullYear(); // Get full year (4 digits)
+    const month = String(inputDate.getMonth() + 1).padStart(2, "0"); // Get month (01-12)
+    const day = String(inputDate.getDate()).padStart(2, "0"); // Get day (01-31)
+
+    return `${year}-${month}-${day}`;
+  }
+
+  const fetchBookingUrl = async (flightParams: Flight) => {
+    try {
+      const params = {
+        ...formData,
+        ...flightParams,
+        startDate: formatDateToYMD(flightParams.startDate),
+        endDate: formatDateToYMD(flightParams.returnDate),
+        currencyCode: undefined, // Remove currencyCode as it's not needed for URL generation
+      };
+
+      const response = await axios.get("https://c.api.flyfast.io/url", {
+        params,
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching booking URL:", error);
+
+      return "#";
+    }
+  };
+
+  const handleBookNowClick = async (params: any) => {
+    setLoadingRowId(params.id);
+    setUrlLoading(true);
+    const url = await fetchBookingUrl(params.data);
+
+    if (url) {
+      window.open(url, "_blank");
+    } else {
+      console.error("Unable to generate booking link. Please try again later.");
+    }
+    setUrlLoading(false);
   };
 
   const columnDefs: ColDef<Flight>[] = [
@@ -109,32 +165,44 @@ const FlightsComponent = () => {
       headerName: "Book",
       sortable: false,
       cellRenderer: (params: any) => (
-          <Button
-              as={Link}
-              href={params.data.link || "#"}
-              target="_blank"
-              size="sm"
-          >
-            Book Now
-          </Button>
+        <Button
+          isDisabled={urlLoading && loadingRowId !== params.data.id}
+          isLoading={loadingRowId === params.data.id}
+          size="sm"
+          onClick={() => handleBookNowClick(params)}
+        >
+          Book Now
+        </Button>
       ),
     },
   ];
 
-  const handleSearch = async (e: { preventDefault: () => void; }) => {
+  const handleSearch = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setError("");
     setNoFlightsMessage("");
 
-    if (!formData.origin || !formData.destination || !formData.startDate || !formData.endDate) {
+    if (
+      !formData.origin ||
+      !formData.destination ||
+      !formData.startDate ||
+      !formData.endDate
+    ) {
       setError("Please fill in all required fields.");
+
       return;
     }
 
     try {
       setLoading(true);
-      const response = await axios.get("https://c.api.flyfast.io/offers", { params: formData });
-      const flightData = convertFlightsToTableData(response.data, formData.origin, formData.destination);
+      const response = await axios.get("https://c.api.flyfast.io/offers", {
+        params: formData,
+      });
+      const flightData = convertFlightsToTableData(
+        response.data,
+        formData.origin,
+        formData.destination,
+      );
 
       if (flightData.length === 0) {
         setNoFlightsMessage("No flights available for the selected criteria.");
@@ -149,188 +217,207 @@ const FlightsComponent = () => {
   };
 
   return (
-      <div className="container mx-auto p-4 space-y-6">
-        <Card>
-          <CardHeader className="flex gap-3">
-            <div className="flex flex-col">
-              <p className="text-md">Find Your Perfect Flight</p>
-              <p className="text-small text-default-500">Enter your travel details below</p>
+    <div className="container mx-auto p-4 space-y-6">
+      <Card>
+        <CardHeader className="flex gap-3">
+          <div className="flex flex-col">
+            <p className="text-md">Find Your Perfect Flight</p>
+            <p className="text-small text-default-500">
+              Enter your travel details below
+            </p>
+          </div>
+        </CardHeader>
+        <CardBody>
+          <form
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            onSubmit={handleSearch}
+          >
+            <Input
+              label="Origin"
+              name="origin"
+              placeholder="Enter origin (IATA code)"
+              value={formData.origin}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Destination"
+              name="destination"
+              placeholder="Enter destination (IATA code)"
+              value={formData.destination}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Start Date"
+              name="startDate"
+              type="date"
+              value={formData.startDate}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="End Date"
+              name="endDate"
+              type="date"
+              value={formData.endDate}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Min Trip Length (days)"
+              min={0}
+              name="minTripLength"
+              type="number"
+              value={formData.minTripLength}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Max Trip Length (days)"
+              min={0}
+              name="maxTripLength"
+              type="number"
+              value={formData.maxTripLength}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Max Flight Duration (minutes)"
+              min={0}
+              name="maxFlightDuration"
+              type="number"
+              value={formData.maxFlightDuration}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Max Layover Time (minutes)"
+              min={0}
+              name="maxLayoverMinutes"
+              type="number"
+              value={formData.maxLayoverMinutes}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Excluded Airlines"
+              name="excludedAirlines"
+              placeholder="Comma-separated IATA codes"
+              value={formData.excludedAirlines}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Excluded Airports"
+              name="excludedAirports"
+              placeholder="Comma-separated IATA codes"
+              value={formData.excludedAirports}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Number of Adults"
+              min={1}
+              name="numAdults"
+              type="number"
+              value={String(formData.numAdults)}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Number of Children"
+              min={0}
+              name="numChildren"
+              type="number"
+              value={String(formData.numChildren)}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Max Stops"
+              min={0}
+              name="stops"
+              type="number"
+              value={formData.stops}
+              onChange={handleInputChange}
+            />
+            <Select
+              label="Cabin Class"
+              name="cabin"
+              placeholder="Select a cabin class"
+              selectedKeys={[formData.cabin]}
+              onChange={handleSelectChange("cabin")}
+            >
+              <SelectItem key="Economy" value="Economy">
+                Economy
+              </SelectItem>
+              <SelectItem key="Business" value="Business">
+                Business
+              </SelectItem>
+            </Select>
+            <Select
+              label="Trip Type"
+              name="tripType"
+              placeholder="Select a trip type"
+              selectedKeys={[formData.tripType]}
+              onChange={handleSelectChange("tripType")}
+            >
+              <SelectItem key="RoundTrip" value="RoundTrip">
+                Round Trip
+              </SelectItem>
+              <SelectItem key="OneWay" value="OneWay">
+                One Way
+              </SelectItem>
+            </Select>
+            <Select
+              label="Currency"
+              name="currencyCode"
+              placeholder="Select a currency"
+              selectedKeys={[formData.currencyCode]}
+              onChange={handleSelectChange("currencyCode")}
+            >
+              <SelectItem key="USD" value="USD">
+                USD
+              </SelectItem>
+              <SelectItem key="EUR" value="EUR">
+                EUR
+              </SelectItem>
+              <SelectItem key="GBP" value="GBP">
+                GBP
+              </SelectItem>
+            </Select>
+            <div className="md:col-span-2 lg:col-span-3">
+              <Button
+                className="w-full"
+                color="primary"
+                isLoading={loading}
+                type="submit"
+              >
+                {loading ? "Searching..." : "Search Flights"}
+              </Button>
             </div>
-          </CardHeader>
+          </form>
+        </CardBody>
+      </Card>
+
+      {error && (
+        <Card>
           <CardBody>
-            <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Input
-                  name="origin"
-                  label="Origin"
-                  placeholder="Enter origin (IATA code)"
-                  value={formData.origin}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="destination"
-                  label="Destination"
-                  placeholder="Enter destination (IATA code)"
-                  value={formData.destination}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="startDate"
-                  label="Start Date"
-                  type="date"
-                  value={formData.startDate}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="endDate"
-                  label="End Date"
-                  type="date"
-                  value={formData.endDate}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="minTripLength"
-                  label="Min Trip Length (days)"
-                  type="number"
-                  min={0}
-                  value={formData.minTripLength}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="maxTripLength"
-                  label="Max Trip Length (days)"
-                  type="number"
-                  min={0}
-                  value={formData.maxTripLength}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="maxFlightDuration"
-                  label="Max Flight Duration (minutes)"
-                  type="number"
-                  min={0}
-                  value={formData.maxFlightDuration}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="maxLayoverMinutes"
-                  label="Max Layover Time (minutes)"
-                  type="number"
-                  min={0}
-                  value={formData.maxLayoverMinutes}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="excludedAirlines"
-                  label="Excluded Airlines"
-                  placeholder="Comma-separated IATA codes"
-                  value={formData.excludedAirlines}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="excludedAirports"
-                  label="Excluded Airports"
-                  placeholder="Comma-separated IATA codes"
-                  value={formData.excludedAirports}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="numAdults"
-                  label="Number of Adults"
-                  type="number"
-                  min={1}
-                  value={String(formData.numAdults)}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="numChildren"
-                  label="Number of Children"
-                  type="number"
-                  min={0}
-                  value={String(formData.numChildren)}
-                  onChange={handleInputChange}
-              />
-              <Input
-                  name="stops"
-                  label="Max Stops"
-                  type="number"
-                  min={0}
-                  value={formData.stops}
-                  onChange={handleInputChange}
-              />
-              <Select
-                  name="cabin"
-                  label="Cabin Class"
-                  placeholder="Select a cabin class"
-                  selectedKeys={[formData.cabin]}
-                  onChange={handleSelectChange("cabin")}
-              >
-                <SelectItem key="Economy" value="Economy">Economy</SelectItem>
-                <SelectItem key="Business" value="Business">Business</SelectItem>
-              </Select>
-              <Select
-                  name="tripType"
-                  label="Trip Type"
-                  placeholder="Select a trip type"
-                  selectedKeys={[formData.tripType]}
-                  onChange={handleSelectChange("tripType")}
-              >
-                <SelectItem key="RoundTrip" value="RoundTrip">Round Trip</SelectItem>
-                <SelectItem key="OneWay" value="OneWay">One Way</SelectItem>
-              </Select>
-              <Select
-                  name="currencyCode"
-                  label="Currency"
-                  placeholder="Select a currency"
-                  selectedKeys={[formData.currencyCode]}
-                  onChange={handleSelectChange("currencyCode")}
-              >
-                <SelectItem key="USD" value="USD">USD</SelectItem>
-                <SelectItem key="EUR" value="EUR">EUR</SelectItem>
-                <SelectItem key="GBP" value="GBP">GBP</SelectItem>
-              </Select>
-              <div className="md:col-span-2 lg:col-span-3">
-                <Button
-                    color="primary"
-                    type="submit"
-                    isLoading={loading}
-                    className="w-full"
-                >
-                  {loading ? "Searching..." : "Search Flights"}
-                </Button>
-              </div>
-            </form>
+            <p className="text-danger">{error}</p>
           </CardBody>
         </Card>
+      )}
 
-        {error && (
-            <Card>
-              <CardBody>
-                <p className="text-danger">{error}</p>
-              </CardBody>
-            </Card>
-        )}
+      {noFlightsMessage && (
+        <Card>
+          <CardBody>
+            <p>{noFlightsMessage}</p>
+          </CardBody>
+        </Card>
+      )}
 
-        {noFlightsMessage && (
-            <Card>
-              <CardBody>
-                <p>{noFlightsMessage}</p>
-              </CardBody>
-            </Card>
-        )}
-
-        {flights.length > 0 && (
-                <div className="ag-theme-alpine" style={{ height: 800, width: "100%" }}>
-                  <AgGridReact
-                      columnDefs={columnDefs}
-                      rowData={flights}
-                      pagination={true}
-                      paginationPageSize={20}
-                      rowSelection="multiple"
-                      animateRows={true}
-                  />
-                </div>
-        )}
-      </div>
+      {flights.length > 0 && (
+        <div className="ag-theme-alpine" style={{ height: 800, width: "100%" }}>
+          <AgGridReact
+            animateRows={true}
+            columnDefs={columnDefs}
+            pagination={true}
+            paginationPageSize={20}
+            rowData={flights}
+            rowSelection="multiple"
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

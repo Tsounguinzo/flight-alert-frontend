@@ -1,25 +1,18 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Metadata } from "next";
 import { SubmitHandler, useForm } from "react-hook-form";
 import React, { useState } from "react";
-import { toast } from "sonner";
 import { Button, Input } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
-import { updateUser } from "@/app/(auth)/actions";
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
 } from "@/utils/form-schema";
-import { constructMetadata } from "@/lib/utils";
-
-export const metadata: Metadata = constructMetadata({
-  title: "Update password",
-  description: "Update your account password",
-  canonical: "/update-password",
-});
+import { handleRequest } from "@/utils/auth-helpers/client";
+import { updatePassword } from "@/utils/auth-helpers/server";
 
 const UpdatePasswordForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -41,7 +34,7 @@ const UpdatePasswordForm = () => {
       confirmPassword: "",
     },
   });
-
+  const router = useRouter();
   const handleUpdatePassword: SubmitHandler<
     UpdatePasswordFormData
   > = async () => {
@@ -49,15 +42,10 @@ const UpdatePasswordForm = () => {
     setErrorMessage(null);
 
     try {
-      const data = getValues();
-      const response = await updateUser(data);
+      const formData = new FormData();
 
-      if (response?.error) {
-        setErrorMessage(response.error);
-      } else {
-        toast.success("Password updated successfully.");
-        reset();
-      }
+      formData.append("password", getValues().password);
+      await handleRequest(formData, updatePassword, router);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     }

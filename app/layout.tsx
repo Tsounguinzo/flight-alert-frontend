@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { Toaster } from "sonner";
 
 import { Providers } from "./providers";
 
@@ -61,7 +60,6 @@ export default function RootLayout({
             <Header />
             <main className="w-full py-20 px-6 flex-grow">{children}</main>
             <Footer />
-            <Toaster richColors position="bottom-right" />
             <Suspense>
               <CustomToaster />
             </Suspense>

@@ -14,7 +14,6 @@ import {
 } from "@nextui-org/react";
 import { User } from "@supabase/supabase-js";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { Tables } from "@/types_db";
 import { checkoutWithStripe } from "@/utils/stripe/server";
@@ -51,10 +50,13 @@ export default function Pricing({ user, products, subscription }: Props) {
     if (!user) {
       setPriceIdLoading(undefined);
 
-      toast.error("Please log in to subscribe to this plan.");
-      router.push("/signin");
-
-      return;
+      return router.push(
+        getErrorRedirect(
+          "/signin",
+          "Sign in to subscribe",
+          "Please log in to subscribe to this plan.",
+        ),
+      );
     }
 
     const { errorRedirect, sessionId } = await checkoutWithStripe(

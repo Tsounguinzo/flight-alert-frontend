@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { User } from "@supabase/supabase-js";
-import { toast } from "sonner";
 import {
   Card,
   CardHeader,
@@ -9,75 +7,49 @@ import {
   Button,
   Progress,
 } from "@nextui-org/react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from "@nextui-org/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
-import { UsageType } from "../dashboard";
-
-import { Subscription } from "@/types/subscription";
 import { capitalizeInital } from "@/lib/utils";
-import { useCancelSubscription } from "@/hooks/useCancelSubscription";
-import { useUpgradeSubscription } from "@/hooks/useUpgradeSubscription";
 import { Badge } from "@/components/badge";
+import { Tables } from "@/types_db";
+import { createStripePortal } from "@/utils/stripe/server";
+import { UsageType } from "@/components/dashboard";
 
-type SubscriptionCardProps = {
-  subscription: Subscription | null;
-  usage?: UsageType;
-  user: User;
-  loading: boolean;
+type Subscription = Tables<"subscriptions">;
+type Price = Tables<"prices">;
+type Product = Tables<"products">;
+
+type SubscriptionWithPriceAndProduct = Subscription & {
+  prices:
+    | (Price & {
+        products: Product | null;
+      })
+    | null;
 };
+
+interface Props {
+  subscription: SubscriptionWithPriceAndProduct | null;
+  usage: UsageType;
+  loading: boolean;
+}
 
 export default function SubscriptionCard({
   subscription,
   usage,
-  user,
   loading,
-}: SubscriptionCardProps) {
-  const upgradeSubscription = useDisclosure();
-  const cancelSubscription = useDisclosure();
-  const { handleCancelSubscription, isCanceling, isCanceled } =
-    useCancelSubscription(user, subscription);
-  const { handleUpgradeSubscription, isUpgrading } = useUpgradeSubscription(
-    user,
-    subscription,
-  );
+}: Props) {
+  const router = useRouter();
+  const currentPath = usePathname();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleCancelClick = () => {
-    if (isCanceled) {
-      window.location.href = "/pricing";
-    } else {
-      cancelSubscription.onOpen();
-    }
-  };
+  const handleStripePortalRequest = async () => {
+    setIsSubmitting(true);
+    const redirectUrl = await createStripePortal(currentPath);
 
-  const handleUpgradeSubscriptionClick = async (onClose: () => void) => {
-    try {
-      if (subscription?.subscription_id) {
-        await handleUpgradeSubscription();
+    setIsSubmitting(false);
 
-        return;
-      }
-      toast.error("Failed to upgrade subscription. Subscription ID not found.");
-    } catch (error) {
-      console.error("Error upgrading subscription:", error);
-      toast.error("Failed to upgrade subscription.");
-    } finally {
-      onClose();
-    }
-  };
-
-  const handleCancelSubscriptionClick = async (onClose: () => void) => {
-    try {
-      await handleCancelSubscription(subscription!.subscription_id);
-    } finally {
-      onClose();
-    }
+    return router.push(redirectUrl);
   };
 
   if (!subscription) {
@@ -117,7 +89,7 @@ export default function SubscriptionCard({
               className="border-primary-800 bg-primary-800/10 px-2 py-1 text-xs text-primary-800"
               variant="secondary"
             >
-              Pro - {capitalizeInital(subscription.pricing_tier)}
+              Pro - {capitalizeInital(subscription?.prices?.products?.name)}
             </Badge>
           </div>
         </CardHeader>
@@ -147,7 +119,7 @@ export default function SubscriptionCard({
                 <p className="text-sm text-muted-foreground">
                   {loading
                     ? "-"
-                    : `${Math.min(usage?.percent_credit_used ?? 0, 100)}% of FlyFast Credits used`}
+                    : `${Math.min(usage?.percent_credit_used ?? 0, 100)}% of FastFly Credits used`}
                 </p>
                 <p className="text-right text-sm text-muted-foreground">
                   Credits refill monthly
@@ -160,73 +132,8 @@ export default function SubscriptionCard({
               <p className="font-medium">Current Plan</p>
               <div className="flex items-center space-x-2">
                 <p className="text-muted-foreground">
-                  {capitalizeInital(subscription.pricing_tier)}
+                  {capitalizeInital(subscription?.prices?.products?.name)}
                 </p>
-                {subscription.pricing_tier == "monthly" && (
-                  <>
-                    <Button
-                      size="sm"
-                      variant="bordered"
-                      onClick={upgradeSubscription.onOpen}
-                    >
-                      Upgrade
-                    </Button>
-                    <Modal
-                      isOpen={upgradeSubscription.isOpen}
-                      onOpenChange={upgradeSubscription.onOpenChange}
-                    >
-                      <ModalContent>
-                        {(onClose) => (
-                          <>
-                            <ModalHeader className="flex flex-col gap-1">
-                              Upgrade
-                            </ModalHeader>
-                            <ModalBody>
-                              Are you sure you want to upgrade your subscription
-                              to the Yearly Tier?
-                              <br />
-                              <br />
-                              <b>
-                                This change will take effect immediately, and be
-                                charged on your current payment method. The
-                                price is reflected on the{" "}
-                                <a
-                                  className="cursor-pointer text-primary-700 transition-colors hover:text-primary-800"
-                                  href="/pricing"
-                                  target="_blank"
-                                >
-                                  pricing page
-                                </a>
-                                .
-                              </b>
-                              <br />
-                              <br />
-                              We&apos;ll refund the remaining funds from the
-                              current monthly subscription depending on the days
-                              remaining on your cycle. You will not be able to
-                              downgrade afterwards.
-                            </ModalBody>
-                            <ModalFooter>
-                              <Button variant="bordered" onClick={onClose}>
-                                Cancel
-                              </Button>
-                              <Button
-                                disabled={isUpgrading}
-                                onClick={() => {
-                                  handleUpgradeSubscriptionClick(onClose);
-                                }}
-                              >
-                                {isUpgrading
-                                  ? "Upgrading..."
-                                  : "Confirm Upgrade"}
-                              </Button>
-                            </ModalFooter>
-                          </>
-                        )}
-                      </ModalContent>
-                    </Modal>
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -235,12 +142,12 @@ export default function SubscriptionCard({
               <p className="font-medium">Current Period</p>
               <p className="text-sm text-muted-foreground">
                 {new Date(
-                  subscription.current_period_start * 1000,
+                  subscription.current_period_start,
                 ).toLocaleDateString()}{" "}
                 -{" "}
                 {subscription.current_period_end
                   ? new Date(
-                      subscription.current_period_end * 1000,
+                      subscription.current_period_end,
                     ).toLocaleDateString()
                   : "Now"}
               </p>
@@ -249,53 +156,11 @@ export default function SubscriptionCard({
           <div className="mt-8 flex justify-between space-x-4">
             <Button
               className="px-0"
-              disabled={isCanceling}
-              onClick={handleCancelClick}
+              disabled={isSubmitting}
+              onClick={handleStripePortalRequest}
             >
-              {isCanceling
-                ? "Canceling..."
-                : isCanceled
-                  ? "Subscription canceled, reactivate?"
-                  : "Cancel Subscription"}
+              Open customer portal
             </Button>
-            <Modal
-              isOpen={cancelSubscription.isOpen}
-              onOpenChange={cancelSubscription.onOpenChange}
-            >
-              <ModalContent>
-                {(onClose) => (
-                  <>
-                    <ModalHeader className="flex flex-col gap-1">
-                      Cancel Subscription
-                    </ModalHeader>
-                    <ModalBody>
-                      <p>
-                        Are you sure you want to cancel your subscription?
-                        You&apos;ll lose access to premium features at the end
-                        of your current billing period.
-                      </p>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button
-                        className="mt-2"
-                        variant="bordered"
-                        onClick={onClose}
-                      >
-                        Keep Subscription
-                      </Button>
-                      <Button
-                        className="mt-2"
-                        disabled={isCanceling}
-                        variant="ghost"
-                        onClick={() => handleCancelSubscriptionClick(onClose)}
-                      >
-                        {isCanceling ? "Canceling..." : "Confirm Cancellation"}
-                      </Button>
-                    </ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
           </div>
         </CardBody>
       </div>

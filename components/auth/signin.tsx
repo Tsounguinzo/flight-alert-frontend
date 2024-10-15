@@ -7,15 +7,16 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Provider } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
-import { signin, signinWithOAuth } from "@/app/(auth)/actions";
 import { SignInFormData, signInSchema } from "@/utils/form-schema";
+import { handleRequest, signInWithOAuth } from "@/utils/auth-helpers/client";
+import { signInWithPassword } from "@/utils/auth-helpers/server";
 
 export default function SignIn() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -28,7 +29,7 @@ export default function SignIn() {
       password: "",
     },
   });
-
+  const router = useRouter();
   const handleSignIn = async (data: SignInFormData) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -40,13 +41,7 @@ export default function SignIn() {
       formData.append("email", data.email);
       formData.append("password", data.password);
 
-      const response = await signin(formData);
-
-      if (response?.error) {
-        setErrorMessage(response.error);
-      } else {
-        reset();
-      }
+      await handleRequest(formData, signInWithPassword, router);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     } finally {
@@ -57,7 +52,10 @@ export default function SignIn() {
   const handleOAuthSignIn = async (provider: Provider) => {
     setErrorMessage(null);
     try {
-      await signinWithOAuth(provider);
+      const formData = new FormData();
+
+      formData.append("provider", provider);
+      await signInWithOAuth(formData);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     }

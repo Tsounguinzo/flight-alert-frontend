@@ -3,10 +3,10 @@ import React from "react";
 import { Button, Link } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 import { useState } from "react";
 
-import { resendConfirmationEmail } from "@/app/(auth)/actions";
+import { handleRequest } from "@/utils/auth-helpers/client";
+import { resendConfirmationEmail } from "@/utils/auth-helpers/server";
 
 export default function Verification() {
   const router = useRouter();
@@ -21,13 +21,12 @@ export default function Verification() {
   const handleResendEmail = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
-    const response = await resendConfirmationEmail(email as string);
+    const formData = new FormData();
 
-    if (response?.error) {
-      toast.error(response.error);
-    } else {
-      toast.success("Email sent successfully");
-    }
+    formData.append("email", email as string);
+
+    await handleRequest(formData, resendConfirmationEmail, router);
+
     setIsSubmitting(false);
   };
 

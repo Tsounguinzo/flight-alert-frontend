@@ -10,10 +10,24 @@ import Link from "next/link";
 import { TbSquareArrowRight } from "react-icons/tb";
 import { FiLogOut } from "react-icons/fi";
 import { User } from "@supabase/supabase-js";
+import { usePathname, useRouter } from "next/navigation";
+import React from "react";
 
-import { handleSignOut } from "./authActions";
+import { SignOut } from "@/utils/auth-helpers/server";
+import { handleRequest } from "@/utils/auth-helpers/client";
 
 export default function AuthButton({ user }: { user: User | null }) {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const handleSignOut = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    await handleRequest(formData, SignOut, router);
+  };
+
   return (
     <div className="flex items-center space-x-4">
       {!user ? (
@@ -60,8 +74,12 @@ export default function AuthButton({ user }: { user: User | null }) {
                 key="logout"
                 className="flex cursor-pointer items-center focus:bg-secondary-300/10"
               >
-                <form action={handleSignOut}>
-                  <button className="flex w-full cursor-pointer items-center focus:bg-secondary-300/10">
+                <form onSubmit={(e) => handleSignOut(e)}>
+                  <input name="pathName" type="hidden" value={pathName} />
+                  <button
+                    className="flex w-full cursor-pointer items-center focus:bg-secondary-300/10"
+                    type="submit"
+                  >
                     <FiLogOut className="mr-2 h-4 w-4" />
                     <span>Sign out</span>
                   </button>

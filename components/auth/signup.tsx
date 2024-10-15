@@ -2,15 +2,15 @@
 import React from "react";
 import { Button, Input, Checkbox, Link, Divider } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Provider } from "@supabase/supabase-js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { signup, signinWithOAuth } from "@/app/(auth)/actions";
 import { signUpSchema, SignUpFormData } from "@/utils/form-schema";
+import { handleRequest, signInWithOAuth } from "@/utils/auth-helpers/client";
+import { signUp } from "@/utils/auth-helpers/server";
 
 export default function Signup() {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -45,28 +45,7 @@ export default function Signup() {
       formData.append("password", data.password);
       formData.append("heard-about-us", data.heard_about_us || "");
 
-      const response = await signup(formData);
-
-      if (response?.error) {
-        setErrorMessage(response.error);
-      } else if (!response?.signedIn) {
-        if (response?.exists) {
-          toast.error("An account with this email already exists.");
-          // Redirect to sign in page
-          router.push("/signin");
-        } else {
-          toast.success(
-            "Account created successfully. Please check your email to verify your account.",
-          );
-          reset();
-        }
-      } else {
-        // Redirect to dashboard
-        toast.info(
-          "An account with this email already exists, signing you in...",
-        );
-        router.push("/dashboard");
-      }
+      await handleRequest(formData, signUp, router);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     } finally {
@@ -77,7 +56,10 @@ export default function Signup() {
   const handleOAuthSignUp = async (provider: Provider) => {
     setErrorMessage(null);
     try {
-      await signinWithOAuth(provider);
+      const formData = new FormData();
+
+      formData.append("provider", provider);
+      await signInWithOAuth(formData);
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     }

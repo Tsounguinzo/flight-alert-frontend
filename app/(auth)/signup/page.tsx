@@ -4,6 +4,7 @@ import { Metadata } from "next/types";
 import { createClient } from "@/utils/supabase/server";
 import SignUPComponent from "@/components/auth/signup";
 import { constructMetadata } from "@/lib/utils";
+import { getUser } from "@/utils/supabase/queries";
 
 export const metadata: Metadata = constructMetadata({
   title: "Sign Up",
@@ -13,9 +14,9 @@ export const metadata: Metadata = constructMetadata({
 
 export default async function SignUp() {
   const supabase = createClient();
-  const { data } = await supabase.auth.getUser();
+  const user = await getUser(supabase);
 
-  if (data?.user) {
+  if (user) {
     redirect("/");
   }
 

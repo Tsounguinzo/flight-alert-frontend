@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import UpdatePasswordForm from "@/components/auth/update-password-form";
 import { constructMetadata } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
+import { getUser } from "@/utils/supabase/queries";
 
 export const metadata: Metadata = constructMetadata({
   title: "Update password",
@@ -13,14 +14,14 @@ export const metadata: Metadata = constructMetadata({
 
 export default async function UpdatePasswordPage() {
   const supabase = createClient();
+  const user = await getUser(supabase);
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (!user) {
     redirect("/signin");
   }
+
   // Redirect to the home page if the user is not using email provider
-  if (data.user.app_metadata.provider !== "email") {
+  if (user.app_metadata.provider !== "email") {
     redirect("/");
   }
 

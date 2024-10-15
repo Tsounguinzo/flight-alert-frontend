@@ -1,7 +1,6 @@
 import { Metadata } from "next/types";
 
 import { constructMetadata } from "@/lib/utils";
-import { createClient } from "@/utils/supabase/server";
 import PricingSuccess from "@/components/pricing-success";
 
 export const metadata: Metadata = constructMetadata({
@@ -11,11 +10,5 @@ export const metadata: Metadata = constructMetadata({
 });
 
 export default async function Pricing() {
-  const supabase = createClient();
-
-  return (
-    <>
-      <PricingSuccess />
-    </>
-  );
+  return <PricingSuccess />;
 }
