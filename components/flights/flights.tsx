@@ -210,7 +210,7 @@ const FlightsComponent = () => {
         setFlights(flightData);
       }
     } catch (err) {
-      setError("An error occurred while fetching flight data.");
+      setError(err?.response?.data?.error || "An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }

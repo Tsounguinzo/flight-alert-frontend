@@ -57,7 +57,7 @@ export function convertFlightsToTableData(
       tripLengthKey as keyof FlightData
     ] as FlightCategory;
 
-    const tripLength = parseInt(tripLengthKey.split("_")[1]);
+    const tripLength = parseInt(tripLengthKey.split("_")[2]);
 
     const linksMap = flightCategory.cheapestOffer.links;
 
