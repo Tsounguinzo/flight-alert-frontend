@@ -58,7 +58,7 @@ export default function RootLayout({
           <PostHogPageView />
           <div className="relative flex flex-col h-screen bg-white">
             <Header />
-            <main className="w-full py-20 px-6 flex-grow">{children}</main>
+            <main className="w-full flex-grow">{children}</main>
             <Footer />
             <Suspense>
               <CustomToaster />

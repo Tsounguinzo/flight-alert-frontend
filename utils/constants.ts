@@ -1,7 +1,7 @@
 export const CONTACT_EMAIL = "help@flyfast.io";
 
 export const TEST_MODE_ENABLED = ["true", "True", "TRUE"].includes(
-  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? "",
+  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? ""
 );
 
 export const siteConfig = {
@@ -9,30 +9,46 @@ export const siteConfig = {
   description: "Get notified when the price of your flight drops.",
   navItems: [
     {
-      label: "Home",
+      label: "How it works",
       href: "/",
     },
     {
-      label: "Flights",
-      href: "/flights",
+      label: "Deals",
+      href: "/",
     },
     {
       label: "Pricing",
       href: "/pricing",
+    },
+    {
+      label: "About us",
+      href: "/",
+    },
+    {
+      label: "Contact",
+      href: "/",
     },
   ],
   navMenuItems: [
     {
-      label: "Home",
+      label: "How it works",
       href: "/",
     },
     {
-      label: "Flights",
-      href: "/flights",
+      label: "Deals",
+      href: "/",
     },
     {
       label: "Pricing",
       href: "/pricing",
+    },
+    {
+      label: "About us",
+      href: "/",
+    },
+    {
+      label: "Contact",
+      href: "/",
     },
   ],
   links: {

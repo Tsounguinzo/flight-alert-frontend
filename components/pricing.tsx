@@ -54,14 +54,14 @@ export default function Pricing({ user, products, subscription }: Props) {
         getErrorRedirect(
           "/signin",
           "Sign in to subscribe",
-          "Please log in to subscribe to this plan.",
-        ),
+          "Please log in to subscribe to this plan."
+        )
       );
     }
 
     const { errorRedirect, sessionId } = await checkoutWithStripe(
       price,
-      currentPath,
+      currentPath
     );
 
     if (errorRedirect) {
@@ -77,8 +77,8 @@ export default function Pricing({ user, products, subscription }: Props) {
         getErrorRedirect(
           currentPath,
           "An unknown error occurred.",
-          "Please try again later or contact a system administrator.",
-        ),
+          "Please try again later or contact a system administrator."
+        )
       );
     }
 
@@ -150,7 +150,7 @@ export default function Pricing({ user, products, subscription }: Props) {
 
             return (
               <Card
-                key={product.id}
+                key={product.name}
                 isBlurred
                 className={cn("bg-background/60 p-3 dark:bg-default-100/50", {
                   "border border-primary": subscription

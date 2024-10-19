@@ -13,7 +13,7 @@ import {
 import NextLink from "next/link";
 import { User } from "@supabase/supabase-js";
 
-import { HeaderLogo } from "../icons";
+import { HeaderLogoV2 } from "../icons";
 
 import { siteConfig } from "@/utils/constants";
 import AuthButton from "@/components/nav/authbutton";
@@ -23,13 +23,13 @@ export const Navbar = ({ user }: { user: User | null }) => {
     <NextUINavbar
       maxWidth="xl"
       position="sticky"
-      style={{ backgroundColor: "#214CE7", color: "#fff" }}
+      style={{ background: "rgba(52, 48, 79, 1)", color: "#fff" }}
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit items-center">
-          <HeaderLogo />
+          <HeaderLogoV2 />
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <p className="font-extrabold text-2xl">FlyFast</p>
+            <p className="font-extrabold text-3xl mt-2">FlyFast</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
@@ -41,7 +41,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={`${item.href}-${item.label}`}>
               <Link
-                className="text-white underline p-3 hover:bg-foreground/50 rounded-3xl"
+                className="text-white hover:bg-foreground/50 rounded-3xl"
                 href={item.href}
               >
                 {item.label}
@@ -54,7 +54,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
         as="div"
         className="hidden sm:flex basis-1/5 sm:basis-full items-center justify-end"
       >
-        <ul className="hidden lg:flex gap-4 justify-end ml-2 w-full">
+        <ul className="lg:flex gap-4 justify-end ml-2 w-full">
           <AuthButton user={user} />
         </ul>
       </NavbarContent>

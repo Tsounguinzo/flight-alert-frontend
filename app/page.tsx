@@ -9,49 +9,49 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { faqs } from "./faqs";
 
 import Hero from "@/components/Hero";
+import { SolutionIcon } from "@/components/icons";
+import Deals from "@/components/Deals";
 
 function FAQ() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-0 py-20 ">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
-        <h2 className="px-2 text-3xl leading-7">
-          <span className="inline-block md:hidden">FAQs</span>
-          <span className="hidden md:inline-block">
-            Frequently asked questions
-          </span>
-        </h2>
-        <Accordion
-          fullWidth
-          keepContentMounted
-          className="gap-3"
-          itemClasses={{
-            base: "px-6 !bg-primary !shadow-none hover:!bg-primary/50",
-            title: "font-medium",
-            trigger: "py-6",
-            content: "pt-0 pb-6 text-base text-foreground",
-          }}
-          items={faqs}
-          selectionMode="multiple"
-          variant="splitted"
-        >
-          {faqs.map((item, i) => (
-            <AccordionItem
-              key={i}
-              className="bg-primary border-2 border-foreground shadow-lg"
-              indicator={
-                <Icon
-                  className="text-foreground"
-                  icon="bi:plus-circle-fill"
-                  width={30}
-                />
-              }
-              title={item.title}
-            >
-              {item.content}
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+    <section className="w-full max-w-[1280px] mx-auto px-6 pt-16 pb-20">
+      <h2 className="leading-7 mb-8 text-3xl text-center mb-8">
+        <span className="inline-block md:hidden">FAQs</span>
+        <span className="hidden md:inline-block">
+          Frequently asked questions
+        </span>
+      </h2>
+      <Accordion
+        fullWidth
+        keepContentMounted
+        className="gap-3"
+        items={faqs}
+        selectionMode="multiple"
+        variant="splitted"
+      >
+        {faqs.map((item) => (
+          <AccordionItem
+            key={item.title}
+            className="shadow-lg hover:bg-[#457EFF] transition-all duration-200"
+            indicator={
+              <Icon
+                className="text-foreground"
+                style={{
+                  color: "#fff",
+                }}
+                icon="bi:plus-circle-fill"
+                width={30}
+              />
+            }
+            style={{
+              backgroundColor: "#457EFF",
+            }}
+            title={<p className="text-white">{item.title}</p>}
+          >
+            <p className="text-white">{item.content}</p>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </section>
   );
 }
@@ -79,20 +79,43 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="py-28" id={"HowItWorks"}>
-      <h2 className="text-3xl font-extrabold mb-8">How It Works</h2>
+    <section
+      id={"HowItWorks"}
+      className="w-full max-w-[1280px] mx-auto px-6 py-16"
+    >
+      <h2 className="text-3xl text-center mb-8">Our Solution</h2>
+      <p
+        className="text-center mb-8"
+        style={{
+          color: "#5E646B",
+        }}
+      >
+        Lorem oftware developer with a passion for aviation and a desire to work
+        in a flexible, remote environment? At RiverCode, we're always looking
+        for skilled independent contractors to join our dynamic team.
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((feature, index) => (
           <div
-            key={index}
-            className="border-2 border-foreground shadow-lg rounded-lg overflow-hidden"
+            key={feature.title}
+            className="p-4 shadow-lg rounded-lg overflow-hidden"
+            style={{
+              border: "1px solid #D0E0E7",
+            }}
           >
-            <div className="bg-foreground text-white text-center p-4">
-              {feature.title}
+            <div className="mb-4">
+              <SolutionIcon />
             </div>
-            <div className="p-6 text-center">
-              <div className="mb-4">{feature.icon}</div>
-              <p className="text-sm">{feature.description}</p>
+            <div className="text-start">
+              <h6 className="font-bold mb-1">{feature.title}</h6>
+              <p
+                className="text-sm"
+                style={{
+                  color: "#5E646B",
+                }}
+              >
+                {feature.description}
+              </p>
             </div>
           </div>
         ))}
@@ -103,10 +126,12 @@ function HowItWorks() {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-8 w-full">
+    <div className="flex flex-col items-center justify-center gap-4 w-full">
       <Hero />
 
       <HowItWorks />
+
+      <Deals />
 
       <FAQ />
     </div>

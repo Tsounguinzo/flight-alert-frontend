@@ -34,9 +34,11 @@ export default function AuthButton({ user }: { user: User | null }) {
         <>
           <Button
             as={Link}
-            className="hidden md:inline-flex text-white"
+            className="xs:inline-flex text-white"
             href="/signin"
-            variant="bordered"
+            style={{
+              backgroundColor: "#457EFF",
+            }}
           >
             Sign in
           </Button>
@@ -44,7 +46,9 @@ export default function AuthButton({ user }: { user: User | null }) {
             as={Link}
             className="p-4 text-white"
             href="/signup"
-            variant="bordered"
+            style={{
+              backgroundColor: "#457EFF",
+            }}
           >
             Try FlyFast
             <TbSquareArrowRight className="mr-2 h-4 w-4" />
