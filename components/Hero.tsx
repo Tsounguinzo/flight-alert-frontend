@@ -5,7 +5,9 @@ import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
 import { MdFlight } from "react-icons/md";
 import { useState } from "react";
 import { MdElectricBolt } from "react-icons/md";
+
 import { HeroBg } from "./icons";
+import {GlobeFlyFast} from "@/components/globe-flyfast";
 
 // import LiveSearchForm from "./livesearch/LiveSearchForm";
 
@@ -14,12 +16,12 @@ export default function Hero() {
 
   return (
     <section
-      className="relative h-[80vh] z-20 flex flex-col items-start gap-[18px] sm:gap-6 w-full"
+      className="relative h-[80vh] z-20 flex items-start gap-[18px] sm:gap-6 w-full"
       style={{
         background: "#E8EBED",
       }}
     >
-      <div className="w-full max-w-[1280px] mx-auto px-6 py-12">
+      <div className="w-full h-full px-6 py-12">
         <LazyMotion features={domAnimation}>
           <m.div
             animate="kick"
@@ -73,11 +75,11 @@ export default function Hero() {
                         ? "text-white"
                         : "text-black"
                     }`}
+                    startContent={<MdFlight size={25} />}
                     style={{
                       backgroundColor:
                         activeButton === "liveSearch" ? "#457EFF" : "#ccc",
                     }}
-                    startContent={<MdFlight size={25} />}
                     onClick={() => setActiveButton("liveSearch")}
                   >
                     Live Search
@@ -99,11 +101,11 @@ export default function Hero() {
                       className={`py-8 px-10 transition-all duration-500 rounded-l-none rounded-r-full ${
                         activeButton === "alerts" ? "text-white" : "text-black"
                       }`}
+                      startContent={<MdElectricBolt size={25} />}
                       style={{
                         backgroundColor:
                           activeButton === "alerts" ? "#457EFF" : "#ccc",
                       }}
-                      startContent={<MdElectricBolt size={25} />}
                       onClick={() => setActiveButton("alerts")}
                     >
                       Alerts
@@ -130,8 +132,8 @@ export default function Hero() {
           </m.div>
         </LazyMotion>
       </div>
-      <div className="hidden md:block absolute bottom-0 right-0">
-        <HeroBg />
+      <div className="w-full h-full px-6 py-12 hidden md:block">
+        <GlobeFlyFast />
       </div>
     </section>
   );

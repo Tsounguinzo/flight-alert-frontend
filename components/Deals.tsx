@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
-import Deal from "./Deal";
 import { Button } from "@nextui-org/react";
+
+import Deal from "./Deal";
 
 function Deals() {
   return (
@@ -15,38 +16,38 @@ function Deals() {
         <h2 className="text-3xl text-center mb-8 text-black">Our Deals</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <Deal
-            city="Bston, MA"
-            dates="We 11 Sep - Fr 20 Sep"
-            from="EWN"
-            price="12000"
             key={"CARD1"}
-            imageUrl="/deal.jpg"
-          />
-          <Deal
             city="Bston, MA"
             dates="We 11 Sep - Fr 20 Sep"
             from="EWN"
+            imageUrl="/deal.jpg"
             price="12000"
+          />
+          <Deal
             key={"CARD2"}
-            imageUrl="/deal.jpg"
-          />
-          <Deal
             city="Bston, MA"
             dates="We 11 Sep - Fr 20 Sep"
             from="EWN"
-            price="12000"
-            key={"CARD3"}
             imageUrl="/deal.jpg"
+            price="12000"
+          />
+          <Deal
+            key={"CARD3"}
+            city="Bston, MA"
+            dates="We 11 Sep - Fr 20 Sep"
+            from="EWN"
+            imageUrl="/deal.jpg"
+            price="12000"
           />
         </div>
       </div>
       <div className="w-full flex items-center justify-center mt-10">
         <Button
           className="xs:inline-flex text-white"
+          size="lg"
           style={{
             backgroundColor: "#457EFF",
           }}
-          size="lg"
         >
           View All Deals
         </Button>

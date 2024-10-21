@@ -54,14 +54,14 @@ export default function Pricing({ user, products, subscription }: Props) {
         getErrorRedirect(
           "/signin",
           "Sign in to subscribe",
-          "Please log in to subscribe to this plan."
-        )
+          "Please log in to subscribe to this plan.",
+        ),
       );
     }
 
     const { errorRedirect, sessionId } = await checkoutWithStripe(
       price,
-      currentPath
+      currentPath,
     );
 
     if (errorRedirect) {
@@ -77,8 +77,8 @@ export default function Pricing({ user, products, subscription }: Props) {
         getErrorRedirect(
           currentPath,
           "An unknown error occurred.",
-          "Please try again later or contact a system administrator."
-        )
+          "Please try again later or contact a system administrator.",
+        ),
       );
     }
 

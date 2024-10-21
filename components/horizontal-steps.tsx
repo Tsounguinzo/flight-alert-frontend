@@ -99,12 +99,12 @@ const HorizontalSteps = React.forwardRef<
       className,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [currentStep, setCurrentStep] = useControlledState(
       currentStepProp,
       defaultStep,
-      onStepChange
+      onStepChange,
     );
 
     const colors = React.useMemo(() => {
@@ -179,7 +179,7 @@ const HorizontalSteps = React.forwardRef<
                   aria-current={status === "active" ? "step" : undefined}
                   className={cn(
                     "group flex w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-large py-2.5",
-                    stepClassName
+                    stepClassName,
                   )}
                   onClick={() => setCurrentStep(stepIdx)}
                   {...props}
@@ -192,7 +192,7 @@ const HorizontalSteps = React.forwardRef<
                             "relative flex h-[34px] w-[34px] items-center justify-center rounded-full border-medium text-large font-semibold text-default-foreground",
                             {
                               "shadow-lg": status === "complete",
-                            }
+                            },
                           )}
                           initial={false}
                           transition={{ duration: 0.25 }}
@@ -228,7 +228,7 @@ const HorizontalSteps = React.forwardRef<
                       <div
                         aria-hidden="true"
                         className={cn(
-                          "pointer-events-none absolute left-6 top-1/2 flex w-8 -translate-y-1/2 translate-x-1/2 items-center sm:w-12"
+                          "pointer-events-none absolute left-6 top-1/2 flex w-8 -translate-y-1/2 translate-x-1/2 items-center sm:w-12",
                         )}
                         style={{
                           // @ts-ignore
@@ -241,7 +241,7 @@ const HorizontalSteps = React.forwardRef<
                             "after:absolute after:block after:h-full after:w-0 after:bg-[var(--active-border-color)] after:transition-[width] after:duration-300 after:content-['']",
                             {
                               "after:w-full": stepIdx < currentStep,
-                            }
+                            },
                           )}
                         />
                       </div>
@@ -255,7 +255,7 @@ const HorizontalSteps = React.forwardRef<
         </ol>
       </nav>
     );
-  }
+  },
 );
 
 HorizontalSteps.displayName = "HorizontalSteps";

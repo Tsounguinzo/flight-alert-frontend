@@ -1,7 +1,7 @@
 export const CONTACT_EMAIL = "help@flyfast.io";
 
 export const TEST_MODE_ENABLED = ["true", "True", "TRUE"].includes(
-  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? ""
+  process.env.NEXT_PUBLIC_TEST_MODE_ENABLED ?? "",
 );
 
 export const siteConfig = {

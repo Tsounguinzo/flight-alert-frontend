@@ -36,10 +36,10 @@ function FAQ() {
             indicator={
               <Icon
                 className="text-foreground"
+                icon="bi:plus-circle-fill"
                 style={{
                   color: "#fff",
                 }}
-                icon="bi:plus-circle-fill"
                 width={30}
               />
             }
@@ -80,8 +80,8 @@ function HowItWorks() {
 
   return (
     <section
-      id={"HowItWorks"}
       className="w-full max-w-[1280px] mx-auto px-6 py-16"
+      id={"HowItWorks"}
     >
       <h2 className="text-3xl text-center mb-8">Our Solution</h2>
       <p
@@ -91,7 +91,7 @@ function HowItWorks() {
         }}
       >
         Lorem oftware developer with a passion for aviation and a desire to work
-        in a flexible, remote environment? At RiverCode, we're always looking
+        in a flexible, remote environment? At RiverCode, we&#39;re always looking
         for skilled independent contractors to join our dynamic team.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
