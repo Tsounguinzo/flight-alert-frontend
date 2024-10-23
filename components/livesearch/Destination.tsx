@@ -1,9 +1,9 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 
-import { AirportItem } from "./Origin";
 import { ArrivalIcon } from "../icons";
-import { color } from "framer-motion";
+
+import { AirportItem } from "./Origin";
 
 // Define the props type for the component
 interface DestinationProps {
@@ -34,6 +34,10 @@ export default function Destination({
       <div className="flex w-full flex-wrap items-end md:flex-nowrap mb-6 md:mb-0 gap-4">
         <Autocomplete
           aria-label="destination"
+          classNames={{
+            base: "w-[200px] h-[40px]",
+          }}
+          color="default"
           inputValue={destination || list.filterText}
           isLoading={list.isLoading}
           items={list.items}
@@ -46,18 +50,14 @@ export default function Destination({
           onSelectionChange={(key: any) => {
             // Find the selected item and update input value
             const selectedItem = list.items.find(
-              (item) => `${item.city_name} (${item.airport_code})` === key
+              (item) => `${item.city_name} (${item.airport_code})` === key,
             );
 
             if (selectedItem) {
               setDestination(
-                `${selectedItem.city_name} (${selectedItem.airport_code})`
+                `${selectedItem.city_name} (${selectedItem.airport_code})`,
               );
             }
-          }}
-          color="default"
-          classNames={{
-            base: "w-[200px] h-[40px]",
           }}
         >
           {(item) => (

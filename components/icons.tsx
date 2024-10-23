@@ -280,12 +280,12 @@ export const SwapDepArrIcon = ({ ...props }) => (
   <svg
     width="37"
     {...props}
+    fill="none"
     height="37"
     viewBox="0 0 37 37"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width="37" height="37" rx="18.5" fill="#457EFF" />
+    <rect fill="#457EFF" height="37" rx="18.5" width="37" />
     <path
       d="M21.8752 18.5413L26 22.6662L21.8752 26.7909L20.6967 25.6124L22.81 23.4988L11.8333 23.4995V21.8328L22.81 21.8322L20.6967 19.7198L21.8752 18.5413ZM15.1248 10.208L16.3033 11.3865L14.19 13.4988L25.1667 13.4995V15.1661L14.19 15.1655L16.3033 17.2791L15.1248 18.4576L11 14.3328L15.1248 10.208Z"
       fill="white"
@@ -297,9 +297,9 @@ export const DepartureIcon = ({ ...props }) => (
   <svg
     width="50"
     {...props}
+    fill="none"
     height="50"
     viewBox="0 0 24 24"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -313,9 +313,9 @@ export const ArrivalIcon = ({ ...props }) => (
   <svg
     width="40"
     {...props}
+    fill="none"
     height="40"
     viewBox="0 0 24 24"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

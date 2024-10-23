@@ -11,6 +11,8 @@ import {
   CardBody,
   CardHeader,
   DateRangePicker,
+  Avatar,
+  Checkbox,
 } from "@nextui-org/react";
 import axios from "axios";
 
@@ -29,7 +31,9 @@ import { convertFlightsToTableData } from "./data";
 import { FlightsHeroBg } from "@/components/icons";
 import Origin from "@/components/livesearch/Origin";
 import Destination from "@/components/livesearch/Destination";
-import PassengerSelector from "@/components/livesearch/PassengerSelector";
+import StaySelector from "@/components/flights/stay";
+
+import type { RangeValue } from "@/components/flights/index";
 
 const FlightsComponent = () => {
   const [formData, setFormData] = useState({
@@ -230,298 +234,382 @@ const FlightsComponent = () => {
     }
   };
 
-  const FlightSearchForm = () => {
-    const [fromLocation, setFromLocation] = useState("YUL");
-    const [toLocation, setToLocation] = useState("YUL");
-    const [showAdvanced, setShowAdvanced] = useState(false);
-    const [value, setValue] = React.useState({
-      start: parseDate("2024-04-01"),
-      end: parseDate("2024-04-08"),
-    });
+    const handleSearchForm = async (searchParams: any) => {
+        setError("");
+        setNoFlightsMessage("");
 
-    const [maxDuration, setMaxDuration] = useState("");
-    const [maxLayover, setMaxLayover] = useState("");
-    const [excludedAirports, setExcludedAirports] = useState("");
-    const [excludedAirlines, setExcludedAirlines] = useState("");
-    const [maxStops, setMaxStops] = useState("");
-    const [numAdults, setNumAdults] = useState(1);
-    const [numChildren, setNumChildren] = useState(0);
-    const [cabinClass, setCabinClass] = useState("Economy");
-    const [tripType, setTripType] = useState("Round Trip");
-    const [currency, setCurrency] = useState("EUR");
+        if (!searchParams.origin || !searchParams.destination || !searchParams.dates) {
+            setError("Please fill in all required fields.");
+            return;
+        }
 
-    const handleSwapLocations = () => {
-      const temp = fromLocation;
+        try {
+            setLoading(true);
+            const response = await axios.get("http://localhost:8080/offers", {
+                params: searchParams,
+            });
 
-      setFromLocation(toLocation);
-      setToLocation(temp);
+            const flightData = convertFlightsToTableData(
+                response.data,
+                searchParams.origin,
+                searchParams.destination
+            );
+
+            if (flightData.length === 0) {
+                setNoFlightsMessage("No flights available for the selected criteria.");
+            } else {
+                setFlights(flightData);
+            }
+        } catch (err) {
+            setError(
+                err?.response?.data?.error || "An error occurred. Please try again."
+            );
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
+  const FlightSearchForm = () => {
+      const [fromLocation, setFromLocation] = useState("YUL");
+      const [toLocation, setToLocation] = useState("YUL");
+      const [showAdvanced, setShowAdvanced] = useState(false);
+      const [value, setValue] = React.useState({
+          start: parseDate("2024-04-01"),
+          end: parseDate("2024-04-08"),
+      });
+      const [stay, setStay] = useState<RangeValue>([12, 28]);
+
+      const [maxDuration, setMaxDuration] = useState("");
+      const [maxLayover, setMaxLayover] = useState("");
+      const [excludedAirports, setExcludedAirports] = useState("");
+      const [excludedAirlines, setExcludedAirlines] = useState("");
+      const [maxStops, setMaxStops] = useState("");
+      const [numAdults, setNumAdults] = useState(1);
+      const [numChildren, setNumChildren] = useState(0);
+      const [cabinClass, setCabinClass] = useState("Economy");
+      const [tripType, setTripType] = useState("Round Trip");
+      const [currency, setCurrency] = useState("EUR");
+      const [avoidUStops, setAvoidUStops] = useState(false);
+
+      const handleSwapLocations = () => {
+          const temp = fromLocation;
+          setFromLocation(toLocation);
+          setToLocation(temp);
+      };
+
+      const handleSearchClick = () => {
+          const searchParams = {
+              origin: fromLocation,
+              destination: toLocation,
+              dates: value,
+              stay,
+              maxDuration,
+              maxLayover,
+              excludedAirports,
+              excludedAirlines,
+              maxStops,
+              numAdults,
+              numChildren,
+              cabinClass,
+              tripType,
+              currency,
+              avoidUStops,
+          };
+          handleSearchForm(searchParams);
+      };
+
     return (
-      <div className="w-full max-w-6xl mx-auto px-4">
-        <div className="relative bg-white/70 backdrop-blur-md rounded-3xl shadow-lg">
-          {/* Main Search Form - Fixed Position */}
-          <div className="p-6">
-            <div className="flex flex-wrap items-end gap-4">
-              <div className="flex-1 min-w-[200px]">
-                <Origin origin={fromLocation} setOrigin={setFromLocation} />
-              </div>
-
-              <Button
-                isIconOnly
-                className="rounded-full min-w-12 h-12"
-                onClick={handleSwapLocations}
-              >
-                <FaRightLeft className="w-5 h-5" />
-              </Button>
-
-              <div className="flex-1 min-w-[200px]">
-                <Destination
-                  destination={toLocation}
-                  setDestination={setToLocation}
-                />
-              </div>
-
-              <div className="flex-1 min-w-[200px]">
-                <DateRangePicker
-                  label="Date duration"
-                  value={value}
-                  visibleMonths={2}
-                  onChange={setValue}
-                />
-              </div>
-
-              <div className="min-w-[100px]">
-                <PassengerSelector />
-              </div>
-
-              <Button
-                className="min-w-[140px] rounded-lg bg-primary-300"
-                size="lg"
-              >
-                Search
-              </Button>
-            </div>
-          </div>
-
-          {/* Advanced Filters Toggle - Fixed Position */}
-          <div className="px-6 pb-4">
-            <div className="border-t border-gray-200 pt-4">
-              <Button
-                className="p-0 h-auto font-medium"
-                endContent={
-                  showAdvanced ? (
-                    <FiChevronsUp className="w-4 h-4" />
-                  ) : (
-                    <FiChevronsDown className="w-4 h-4" />
-                  )
-                }
-                variant="light"
-                onClick={() => setShowAdvanced(!showAdvanced)}
-              >
-                <div className="flex items-center gap-2">Advanced filters</div>
-              </Button>
-            </div>
-          </div>
-
-          {/* Advanced Filters Section - Expandable */}
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
-          >
-            <div className="px-6 pb-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-4">
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Max Flight Duration (minutes)"
-                    placeholder="Enter duration"
-                    type="number"
-                    value={maxDuration}
-                    onChange={(e) => setMaxDuration(e.target.value)}
-                  />
-
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Excluded Airports"
-                    placeholder="Comma-separated IATA codes"
-                    value={excludedAirports}
-                    onChange={(e) => setExcludedAirports(e.target.value)}
-                  />
-
-                  <Select
-                    classNames={{
-                      base: "max-w-full",
-                      trigger: "bg-gray-50",
-                    }}
-                    label="Max Stops"
-                    value={currency}
-                    onChange={(e) => setMaxStops(e.target.value)}
-                  >
-                    <SelectItem key="0">NonStop Only</SelectItem>
-                    <SelectItem key="1">1 stop or fewer</SelectItem>
-                    <SelectItem key="2">2 stops or fewer</SelectItem>
-                    <SelectItem key="3">Any number of stops</SelectItem>
-                  </Select>
-
-                  <Select
-                    classNames={{
-                      base: "max-w-full",
-                      trigger: "bg-gray-50",
-                    }}
-                    label="Currency"
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                  >
-                    <SelectItem key="GBP">British Pound (GBP)</SelectItem>
-                    <SelectItem key="CAD">Canadian Dollar (CAD)</SelectItem>
-                    <SelectItem key="EUR">Euro (EUR)</SelectItem>
-                    <SelectItem key="JPY">Japanese Yen (JPY)</SelectItem>
-                    <SelectItem key="USD">US Dollar (USD)</SelectItem>
-                  </Select>
+        <div className="w-full max-w-6xl mx-auto px-4">
+            <div className="relative bg-white/70 backdrop-blur-md rounded-3xl shadow-lg">
+                <div className="p-6">
+                    <div className="flex flex-wrap items-end gap-4">
+                        <div className="flex flex-wrap items-end gap-4">
+                            <div className="flex-1 min-w-[200px]">
+                                <Origin origin={fromLocation} setOrigin={setFromLocation}/>
+                            </div>
+                            <Button
+                                isIconOnly
+                                className="rounded-full min-w-12 h-12"
+                                onClick={handleSwapLocations}
+                            >
+                                <FaRightLeft className="w-5 h-5"/>
+                            </Button>
+                            <div className="flex-1 min-w-[200px]">
+                                <Destination
+                                    destination={toLocation}
+                                    setDestination={setToLocation}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex-1 min-w-[200px]">
+                            <DateRangePicker
+                                label="Date duration"
+                                value={value}
+                                visibleMonths={2}
+                                onChange={setValue}
+                            />
+                        </div>
+                        <div className="min-w-[100px] h-full">
+                            <StaySelector
+                                isInRange={true}
+                                setValue={setStay}
+                                value={stay}
+                            />
+                        </div>
+                        <Button
+                            className="min-w-[140px] rounded-lg bg-primary-300"
+                            size="lg"
+                            onClick={handleSearchClick}
+                            isLoading={loading}
+                        >
+                            {loading ? "Searching..." : "Search"}
+                        </Button>
+                    </div>
                 </div>
 
-                <div className="space-y-4">
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Max Layover Time (minutes)"
-                    placeholder="Enter layover time"
-                    type="number"
-                    value={maxLayover}
-                    onChange={(e) => setMaxLayover(e.target.value)}
-                  />
-
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Number of Adults"
-                    min={1}
-                    type="number"
-                    value={numAdults}
-                    onChange={(e) => setNumAdults(Number(e.target.value))}
-                  />
-
-                  <Select
-                    classNames={{
-                      base: "max-w-full",
-                      trigger: "bg-gray-50",
-                    }}
-                    label="Cabin Class"
-                    value={cabinClass}
-                    onChange={(e) => setCabinClass(e.target.value)}
-                  >
-                    <SelectItem key="economy">Economy</SelectItem>
-                    <SelectItem key="premium">Premium Economy</SelectItem>
-                    <SelectItem key="business">Business</SelectItem>
-                    <SelectItem key="first">First</SelectItem>
-                  </Select>
+                {/* Advanced Filters Toggle - Fixed Position */}
+                <div className="px-6 pb-4">
+                    <div className="border-t border-gray-200 pt-4">
+                        <Button
+                            className="p-0 h-auto font-medium"
+                            endContent={
+                                showAdvanced ? (
+                                    <FiChevronsUp className="w-4 h-4"/>
+                                ) : (
+                                    <FiChevronsDown className="w-4 h-4"/>
+                                )
+                            }
+                            variant="light"
+                            onClick={() => setShowAdvanced(!showAdvanced)}
+                        >
+                            <div className="flex items-center gap-2">Advanced filters</div>
+                        </Button>
+                    </div>
                 </div>
 
-                <div className="space-y-4">
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Excluded Airlines"
-                    placeholder="Comma-separated IATA codes"
-                    value={excludedAirlines}
-                    onChange={(e) => setExcludedAirlines(e.target.value)}
-                  />
+                {/* Advanced Filters Section - Expandable */}
+                <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
+                >
+                    <div className="px-6 pb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="space-y-4">
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Max Flight Duration (minutes)"
+                                    placeholder="Enter duration"
+                                    type="number"
+                                    value={maxDuration}
+                                    onChange={(e) => setMaxDuration(e.target.value)}
+                                />
 
-                  <Input
-                    classNames={{
-                      base: "max-w-full",
-                      input: "bg-gray-50",
-                    }}
-                    label="Number of Children"
-                    min={0}
-                    type="number"
-                    value={numChildren}
-                    onChange={(e) => setNumChildren(Number(e.target.value))}
-                  />
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Excluded Airports"
+                                    placeholder="Comma-separated IATA codes"
+                                    value={excludedAirports}
+                                    onChange={(e) => setExcludedAirports(e.target.value)}
+                                />
 
-                  <Select
-                    classNames={{
-                      base: "max-w-full",
-                      trigger: "bg-gray-50",
-                    }}
-                    label="Trip Type"
-                    value={tripType}
-                    onChange={(e) => setTripType(e.target.value)}
-                  >
-                    <SelectItem key="round">Round Trip</SelectItem>
-                    <SelectItem key="one">One Way</SelectItem>
-                  </Select>
+                                <Select
+                                    classNames={{
+                                        base: "max-w-full",
+                                        trigger: "bg-gray-50",
+                                    }}
+                                    label="Max Stops"
+                                    value={currency}
+                                    onChange={(e) => setMaxStops(e.target.value)}
+                                >
+                                    <SelectItem key="0">NonStop Only</SelectItem>
+                                    <SelectItem key="1">1 stop or fewer</SelectItem>
+                                    <SelectItem key="2">2 stops or fewer</SelectItem>
+                                    <SelectItem key="3">Any number of stops</SelectItem>
+                                </Select>
+
+                                <Select
+                                    classNames={{
+                                        base: "max-w-full",
+                                        trigger: "bg-gray-50",
+                                    }}
+                                    label="Currency"
+                                    value={currency}
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                >
+                                    <SelectItem
+                                        key="GBP"
+                                        startContent={
+                                            <Avatar
+                                                alt="Argentina"
+                                                className="w-6 h-6"
+                                                src="https://flagcdn.com/ar.svg"
+                                            />
+                                        }
+                                    >
+                                        British Pound (GBP)
+                                    </SelectItem>
+                                    <SelectItem key="CAD">Canadian Dollar (CAD)</SelectItem>
+                                    <SelectItem key="EUR">Euro (EUR)</SelectItem>
+                                    <SelectItem key="JPY">Japanese Yen (JPY)</SelectItem>
+                                    <SelectItem key="USD">US Dollar (USD)</SelectItem>
+                                </Select>
+                            </div>
+
+                            <div className="space-y-4">
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Max Layover Time (minutes)"
+                                    placeholder="Enter layover time"
+                                    type="number"
+                                    value={maxLayover}
+                                    onChange={(e) => setMaxLayover(e.target.value)}
+                                />
+
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Number of Adults"
+                                    min={1}
+                                    type="number"
+                                    value={numAdults}
+                                    onChange={(e) => setNumAdults(Number(e.target.value))}
+                                />
+
+                                <Select
+                                    classNames={{
+                                        base: "max-w-full",
+                                        trigger: "bg-gray-50",
+                                    }}
+                                    label="Cabin Class"
+                                    value={cabinClass}
+                                    onChange={(e) => setCabinClass(e.target.value)}
+                                >
+                                    <SelectItem key="economy">Economy</SelectItem>
+                                    <SelectItem key="premium">Premium Economy</SelectItem>
+                                    <SelectItem key="business">Business</SelectItem>
+                                    <SelectItem key="first">First</SelectItem>
+                                </Select>
+                            </div>
+
+                            <div className="space-y-4">
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Excluded Airlines"
+                                    placeholder="Comma-separated IATA codes"
+                                    value={excludedAirlines}
+                                    onChange={(e) => setExcludedAirlines(e.target.value)}
+                                />
+
+                                <Input
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "bg-gray-50",
+                                    }}
+                                    label="Number of Children"
+                                    min={0}
+                                    type="number"
+                                    value={numChildren}
+                                    onChange={(e) => setNumChildren(Number(e.target.value))}
+                                />
+
+                                <Select
+                                    classNames={{
+                                        base: "max-w-full",
+                                        trigger: "bg-gray-50",
+                                    }}
+                                    label="Trip Type"
+                                    value={tripType}
+                                    onChange={(e) => setTripType(e.target.value)}
+                                >
+                                    <SelectItem key="round">Round Trip</SelectItem>
+                                    <SelectItem key="one">One Way</SelectItem>
+                                </Select>
+
+                                <Checkbox
+                                    classNames={{
+                                        base: "max-w-full bg-gray-50 rounded-lg p-4",
+                                    }}
+                                    isSelected={avoidUStops}
+                                    onValueChange={setAvoidUStops}
+                                >
+                                    AvoidUStops
+                                </Checkbox>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     );
   };
 
-  return (
-    <div className="pt-0 space-y-6">
-      <div className="relative mb-56">
-        <FlightsHeroBg />
-        <div className="absolute inset-x-0 top-48 z-10">
-          <FlightSearchForm />
-        </div>
-      </div>
-      <div className="container mx-auto pace-y-6 pt-28">
-        <Card>
-          <CardHeader className="flex gap-3">
-            <div className="flex flex-col">
-              <p className="text-md">Find Your Perfect Flight</p>
-              <p className="text-small text-default-500">
-                Enter your travel details below
-              </p>
+    return (
+        <div className="pt-0 space-y-6">
+            <div className="relative h-[175px]">
+                <div className="absolute inset-0">
+                    <FlightsHeroBg/>
+                </div>
             </div>
-          </CardHeader>
-          <CardBody>
-            <form
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-              onSubmit={handleSearch}
-            >
-              <Input
-                label="Origin"
-                name="origin"
-                placeholder="Enter origin (IATA code)"
-                value={formData.origin}
-                onChange={handleInputChange}
-              />
-              <Input
-                label="Destination"
-                name="destination"
-                placeholder="Enter destination (IATA code)"
-                value={formData.destination}
-                onChange={handleInputChange}
-              />
-              <Input
-                label="Start Date"
-                name="startDate"
-                type="date"
-                value={formData.startDate}
-                onChange={handleInputChange}
-              />
-              <Input
-                label="End Date"
-                name="endDate"
-                type="date"
-                value={formData.endDate}
-                onChange={handleInputChange}
+            <div className="flex h-full w-full items-end">
+                <FlightSearchForm/>
+            </div>
+
+            <div className="container mx-auto pace-y-6 pt-28">
+                <Card>
+                    <CardHeader className="flex gap-3">
+                        <div className="flex flex-col">
+                            <p className="text-md">Find Your Perfect Flight</p>
+                            <p className="text-small text-default-500">
+                                Enter your travel details below
+                            </p>
+                        </div>
+                    </CardHeader>
+                    <CardBody>
+                        <form
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                            onSubmit={handleSearch}
+                        >
+                            <Input
+                                label="Origin"
+                                name="origin"
+                                placeholder="Enter origin (IATA code)"
+                                value={formData.origin}
+                                onChange={handleInputChange}
+                            />
+                            <Input
+                                label="Destination"
+                                name="destination"
+                                placeholder="Enter destination (IATA code)"
+                                value={formData.destination}
+                                onChange={handleInputChange}
+                            />
+                            <Input
+                                label="Start Date"
+                                name="startDate"
+                                type="date"
+                                value={formData.startDate}
+                                onChange={handleInputChange}
+                            />
+                            <Input
+                                label="End Date"
+                                name="endDate"
+                                type="date"
+                                value={formData.endDate}
+                                onChange={handleInputChange}
               />
               <Input
                 label="Min Trip Length (days)"

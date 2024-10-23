@@ -1,13 +1,13 @@
 "use client";
 
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+import { useState } from "react";
 
 import { HeroBg, SwapDepArrIcon } from "./icons";
-import { Button, Select, SelectItem } from "@nextui-org/react";
 import PassengerSelector from "./livesearch/PassengerSelector";
 import Origin from "./livesearch/Origin";
 import Destination from "./livesearch/Destination";
-import { useState } from "react";
 
 export default function Hero() {
   const flightTypes = [
@@ -32,6 +32,7 @@ export default function Hero() {
     setOrigin(y);
     setDestination(x);
   };
+
   return (
     <section
       className="relative h-[70vh] z-20 flex items-start gap-[18px] sm:gap-6 w-full"
@@ -107,7 +108,7 @@ export default function Hero() {
                       ))}
                     </Select>
                   </div>
-                  <div className="w-full h-[1px] bg-[#000000] opacity-[17%]"></div>
+                  <div className="w-full h-[1px] bg-[#000000] opacity-[17%]" />
 
                   <div className="p-5 flex items-center rounded-bl-3xl rounded-br-3xl gap-3 bg-[#F3F3F3] w-full">
                     <div className="flex items-center gap-3 w-full">

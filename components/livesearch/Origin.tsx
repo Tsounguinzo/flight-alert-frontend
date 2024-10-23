@@ -1,5 +1,6 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
+
 import { DepartureIcon } from "../icons";
 
 // Define the type for the airport item
@@ -36,6 +37,10 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
       <div className="flex w-full flex-wrap items-end md:flex-nowrap mb-6 md:mb-0 gap-4">
         <Autocomplete
           aria-label="origin"
+          classNames={{
+            base: "w-[200px] h-[40px]",
+          }}
+          color="default"
           inputValue={origin || list.filterText}
           isLoading={list.isLoading}
           items={list.items}
@@ -48,18 +53,14 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
           onSelectionChange={(key: any) => {
             // Find the selected item and update input value
             const selectedItem = list.items.find(
-              (item) => `${item.city_name} (${item.airport_code})` === key
+              (item) => `${item.city_name} (${item.airport_code})` === key,
             );
 
             if (selectedItem) {
               setOrigin(
-                `${selectedItem.city_name} (${selectedItem.airport_code})`
+                `${selectedItem.city_name} (${selectedItem.airport_code})`,
               );
             }
-          }}
-          color="default"
-          classNames={{
-            base: "w-[200px] h-[40px]",
           }}
         >
           {(item) => (
