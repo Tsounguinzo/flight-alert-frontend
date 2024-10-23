@@ -34,15 +34,6 @@ export type Flight = {
   link?: string;
 };
 
-export type ColumnsKey =
-  | "startDate"
-  | "returnDate"
-  | "departingAirport"
-  | "returningAirport"
-  | "stay"
-  | "price"
-  | "actions";
-
 export function convertFlightsToTableData(
   flightData: FlightData,
   departingAirport: string,
@@ -61,9 +52,19 @@ export function convertFlightsToTableData(
 
     const linksMap = flightCategory.cheapestOffer.links;
 
+    if (!flightCategory.value?.length) continue;
+
     const mappedFlights = flightCategory.value.map((offer, index) => ({
-      startDate: new Date(offer.startDate),
-      returnDate: new Date(offer.returnDate),
+      startDate: new Date(
+        new Date(offer.startDate).setDate(
+          new Date(offer.startDate).getDate() + 1,
+        ),
+      ),
+      returnDate: new Date(
+        new Date(offer.returnDate).setDate(
+          new Date(offer.returnDate).getDate() + 1,
+        ),
+      ),
       price: offer.price,
       id: `${tripLength}_${index}`,
       departingAirport: departingAirport,

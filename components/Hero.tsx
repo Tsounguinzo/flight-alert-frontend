@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
+
 import { HeroBg } from "./icons";
 
 export default function Hero() {
-
   return (
     <section
       className="relative h-[70vh] z-20 flex items-start gap-[18px] sm:gap-6 w-full"
@@ -57,15 +57,15 @@ export default function Hero() {
                 }}
               >
                 <div className="p-28 w-[60%] transition-all duration-500 bg-blue-500 text-4xl rounded-md">
-                    Future search form
-                  </div>
+                  Future search form
+                </div>
               </m.div>
             </AnimatePresence>
           </m.div>
         </LazyMotion>
       </div>
       <div className="hidden md:block absolute bottom-0 right-0">
-        <HeroBg/>
+        <HeroBg />
       </div>
     </section>
   );

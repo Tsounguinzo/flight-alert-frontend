@@ -1,0 +1,17 @@
+/* https://www.ag-grid.com/react-data-grid/global-style-customisation-variables/ */
+.ag-theme-quartz,
+.ag-theme-quartz-dark {
+    /* Changes the color of the grid text */
+    --ag-foreground-color: rgb(30, 30, 31);
+    /* Changes the color of the grid background */
+    --ag-background-color: rgb(255, 255, 255);
+    /* Changes the header color of the top row */
+    --ag-header-background-color: rgb(246, 248, 250);
+    /* Changes the hover color of the row*/
+    --ag-row-hover-color: rgb(216, 226, 255);
+    /* Changes the color of the header text */
+    --ag-header-foreground-color: rgb(82, 88, 102);
+    /* Header height */
+    --ag-header-height: 76px;
+    --ag-header-column-resize-handle-display: none;
+}

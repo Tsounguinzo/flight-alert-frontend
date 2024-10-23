@@ -33,7 +33,8 @@ export default function Destination({
       inputValue={destination || list.filterText}
       isLoading={list.isLoading}
       items={list.items}
-      placeholder="Where to?"
+      label="To"
+      placeholder="Select destination"
       startContent={<FaPlaneArrival style={{ marginRight: 4 }} />}
       onInputChange={(text) => {
         list.setFilterText(text);
@@ -72,7 +73,7 @@ export default function Destination({
             </div>
             <div style={{ alignSelf: "flex-start" }}>
               <span
-                className="text-white text-xs px-2 py-1 rounded-full"
+                className="text-white text-xs px-2 py-2 rounded-full"
                 style={{
                   backgroundColor: "#214CE7",
                 }}
