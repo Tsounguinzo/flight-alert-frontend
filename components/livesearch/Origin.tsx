@@ -57,16 +57,14 @@ export default function Origin({ origin, setOrigin }: OriginProps) {
             );
 
             if (selectedItem) {
-              setOrigin(
-                `${selectedItem.city_name} (${selectedItem.airport_code})`,
-              );
+              setOrigin(selectedItem.airport_code);
             }
           }}
         >
           {(item) => (
             <AutocompleteItem
               key={`${item.city_name} (${item.airport_code})`}
-              textValue={`${item.city_name} (${item.airport_code})`}
+              textValue={`${item.airport_code}`}
             >
               <div
                 style={{

@@ -54,16 +54,14 @@ export default function Destination({
             );
 
             if (selectedItem) {
-              setDestination(
-                `${selectedItem.city_name} (${selectedItem.airport_code})`,
-              );
+              setDestination(selectedItem.airport_code);
             }
           }}
         >
           {(item) => (
             <AutocompleteItem
               key={`${item.city_name} (${item.airport_code})`}
-              textValue={`${item.city_name} (${item.airport_code})`}
+              textValue={`${item.airport_code}`}
             >
               <div
                 style={{

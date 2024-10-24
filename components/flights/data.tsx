@@ -1,26 +1,7 @@
-type Offer = {
-  tripLength?: number; // For global offers
-  startDate: string;
-  returnDate: string;
-  price: number;
-  link?: string; // Optional initially, can be set later
-};
-
-type FlightCategory = {
-  value: Offer[];
-  cheapestOffer: {
-    indices: number[];
-    links: Record<number, string>;
-    price: number;
-  };
-};
-
 export type FlightData = {
-  globalCheapestOffers: {
-    offers: Offer[]; // Global offers
-    price: number; // Price of the global cheapest offer
-  };
-  [tripLength: `tripLength_${number}`]: FlightCategory; // Dynamic trip lengths (e.g., tripLength_5, tripLength_10)
+  offers: Offer[];
+  parameters: Parameters;
+  usage: number;
 };
 
 export type Flight = {
@@ -34,46 +15,50 @@ export type Flight = {
   link?: string;
 };
 
-export function convertFlightsToTableData(
-  flightData: FlightData,
-  departingAirport: string,
-  returningAirport: string,
-): Flight[] {
+export type Offer = {
+  startDate: Date;
+  returnDate: Date;
+  price: number;
+  tripLength: number;
+  deal?: boolean;
+};
+
+export type Parameters = {
+  origin: string;
+  destination: string;
+  startDate: Date;
+  endDate: Date;
+  minTripLength: number;
+  maxTripLength: number;
+  maxFlightDuration: number;
+  maxLayoverMinutes: number;
+  excludedAirlines: string;
+  excludedAirports: string;
+  stops: number;
+  travelClass: string;
+  tripType: string;
+  numAdults: number;
+  numChildren: number;
+  currencyCode: string;
+  avoidUStops: boolean;
+};
+
+export function convertFlightsToTableData(flightData: FlightData): Flight[] {
   const flights: Flight[] = [];
 
-  for (const tripLengthKey in flightData) {
-    if (tripLengthKey === "globalCheapestOffers") continue; // Skip global offers
-
-    const flightCategory = flightData[
-      tripLengthKey as keyof FlightData
-    ] as FlightCategory;
-
-    const tripLength = parseInt(tripLengthKey.split("_")[2]);
-
-    const linksMap = flightCategory.cheapestOffer.links;
-
-    if (!flightCategory.value?.length) continue;
-
-    const mappedFlights = flightCategory.value.map((offer, index) => ({
-      startDate: new Date(
-        new Date(offer.startDate).setDate(
-          new Date(offer.startDate).getDate() + 1,
-        ),
-      ),
-      returnDate: new Date(
-        new Date(offer.returnDate).setDate(
-          new Date(offer.returnDate).getDate() + 1,
-        ),
-      ),
+  for (let i = 0; i < flightData.offers.length; i++) {
+    const offer = flightData.offers[i];
+    const flight: Flight = {
+      id: `${offer.tripLength}_${i}`,
+      startDate: offer.startDate,
+      returnDate: offer.returnDate,
+      departingAirport: flightData.parameters.origin,
+      returningAirport: flightData.parameters.destination,
+      stay: offer.tripLength,
       price: offer.price,
-      id: `${tripLength}_${index}`,
-      departingAirport: departingAirport,
-      returningAirport: returningAirport,
-      stay: tripLength,
-      link: linksMap[index] || undefined,
-    }));
+    };
 
-    flights.push(...mappedFlights);
+    flights.push(flight);
   }
 
   return flights;
